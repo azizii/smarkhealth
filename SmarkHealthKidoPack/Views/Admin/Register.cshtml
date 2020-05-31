@@ -39,15 +39,19 @@
                 </div>
                 <div class="login-form">
                     <form enctype="multipart/form-data" asp-action="Register">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-group">
                             <label>User Name</label>
                             <input asp-for="AdminName" class="form-control" />
+                            <span asp-validation-for="AdminName" class="text-danger"></span>
                         </div>
-                       
+
                         <div class="form-group">
                             <label>Password</label>
                             <input asp-for="password" class="form-control" />
+                            <span asp-validation-for="password" class="text-danger"></span>
                         </div>
+
                         <div class="custom-file">
                             <input asp-for="Photo" class="form-control custom-file-input" />
                             <label class="custom-file-label">
@@ -55,20 +59,20 @@
                             </label>
                         </div>
 
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox"> Agree the terms and policy
-                            </label>
-                        </div>
+                        @*<div class="checkbox">
+            <label>
+                <input type="checkbox"> Agree the terms and policy
+            </label>
+        </div>*@
                         <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Register</button>
-                        <div class="social-login-content">
-                            <div class="social-button">
-                                <button type="button" class="btn social facebook btn-flat btn-addon mb-3"><i class="ti-facebook"></i>Register with facebook</button>
-                                <button type="button" class="btn social twitter btn-flat btn-addon mt-2"><i class="ti-twitter"></i>Register with twitter</button>
-                            </div>
-                        </div>
+                        @*<div class="social-login-content">
+            <div class="social-button">
+                <button type="button" class="btn social facebook btn-flat btn-addon mb-3"><i class="ti-facebook"></i>Register with facebook</button>
+                <button type="button" class="btn social twitter btn-flat btn-addon mt-2"><i class="ti-twitter"></i>Register with twitter</button>
+            </div>
+        </div>*@
                         <div class="register-link m-t-15 text-center">
-                            <p>Already have account ? <a href="#"> Sign in</a></p>
+                            <p>Already have account ? <a asp-controller="Admin" asp-action="LogIn">Sign In</a></p>
                         </div>
                     </form>
                 </div>

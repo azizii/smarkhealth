@@ -1,0 +1,516 @@
+﻿@model SmarkHealthKidoPack.ViewModel.Foodviewmode
+@{
+    ViewData["Title"] = "FoodView";
+    Layout = "~/Views/Shared/AdminLayOut.cshtml";
+}
+
+
+
+<div class="container">
+    <div class="card card-login mx-auto mt-5">
+        <div class="card-header">Create food</div>
+        <div class="card-body">
+            <form enctype="multipart/form-data" asp-action="CreateFood">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label class="control-label">Category Name</label>
+                    <a class="btn btn-success" style="width:50%" asp-controller="FoodCategories" asp-action="Create">Create an Food Category</a>
+                    @Html.DropDownListFor(model => model.foodCategoryId, new SelectList(ViewBag.foodCategoryId, "Value", "Text"), new { @class = "dropdown-toggle btn btn-primary" })
+
+
+
+
+                    @*<select asp-for="foodCategory.FoodCategoryName" class ="form-control" asp-items="ViewBag.foodCategoryId"></select>*@
+                </div>
+
+
+
+                <div class="form-group">
+                    <label asp-for="foodName" class="control-label"></label>
+                    <input asp-for="foodName" class="form-control" />
+                    <span asp-validation-for="foodName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="price" class="control-label"></label>
+                    <input asp-for="price" class="form-control" />
+                    <span asp-validation-for="price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="foodCalories" class="control-label"></label>
+                    <input asp-for="foodCalories" class="form-control" />
+                    <span asp-validation-for="foodCalories" class="text-danger"></span>
+                </div>
+                @*<div class="form-group row">
+
+            <label asp-for="photo" class="control-label"></label>
+
+            <div class="col-12 col-md-9">
+                <input asp-for="photo" id="file-input" name="file-input" class="form-control-file">
+            </div>
+
+        </div>*@
+                <div class="form-group ">
+
+                    <label asp-for="photo" class="control-label"></label>
+                    <div class="custom-file">
+                        <input asp-for="photo" class="form-control custom-file-input" />
+                        <label class="custom-file-label">
+                            choose file
+                        </label>
+                    </div>
+
+                </div>
+
+
+
+
+                @*<div class="form-group">
+            <label asp-for="foodCategoryId" class="control-label"></label>
+
+            @Html.DropDownListFor(model => model.foodCategoryId, new SelectList(ViewBag.foodCategoryId, "Value", "Text"), new { @class = "dropdown-toggle btn btn-primary" })
+
+            @*<select asp-for="foodCategory.FoodCategoryName" class ="form-control" asp-items="ViewBag.foodCategoryId"></select>
+        </div>*@
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group row">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+
+
+                @*@section Scripts {
+            <script>
+                $(document).ready(function () {
+                    $('.custom-file-input').on("change", function () {
+                        var fileName = $(this).val().split("\\").pop();
+                        $(this).next('.custom-file-label').html(fileName);
+                    });
+                });
+            </script>
+        }*@
+
+
+                @*<script>
+            $('#inputGroupFile02').on('change', function () {
+                //get the file name
+                var fileName = $(this).val();
+                //replace the "Choose a file" label
+                $(this).next('.custom-file-label').html(fileName);
+            })
+        </script>*@
+            </form>
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<h1>FoodListGenerator</h1>
+
+<div class="breadcrumbs">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Dashboard</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li><a href="#">Dashboard</a></li>
+                            <li><a href="#">Allfoods</a></li>
+                            <li class="active">Table</li>
+                        </ol> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <strong class="card-title">Data Table</strong>
+                    </div>
+                    <div class="card-body">
+                        <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Food</th>
+                                    <th>Size</th>
+                                    <th>Calories</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>Senior Javascript Developer</td>
+                                    <td>Edinburgh</td>
+                                    <td>$433,060</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>Prescott Bartlett</td>
+                                    <td>Technical Author</td>
+                                    <td>London</td>
+                                    <td>$145,000</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>FastFood</td>
+                                    <td>burger</td>
+                                    <td>medium size</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>Drinks</td>
+                                    <td>Pepsi</td>
+                                    <td>1.5ltr</td>
+                                    <td>130</td>
+                                </tr>
+                                <tr>
+                                    <td>Drinks</td>
+                                    <td>Pepsi</td>
+                                    <td>1.5ltr</td>
+                                    <td>130</td>
+                                </tr>
+                                <tr>
+                                    <td>Drinks</td>
+                                    <td>Pepsi</td>
+                                    <td>1.5ltr</td>
+                                    <td>130</td>
+                                </tr>
+                                <tr>
+                                    <td>Drinks</td>
+                                    <td>String</td>
+                                    <td>1.5ltr</td>
+                                    <td>130</td>
+                                </tr>
+                                <tr>
+                                    <td>Drinks</td>
+                                    <td>Fanta</td>
+                                    <td>1.25ltr</td>
+                                    <td>130</td>
+                                </tr>
+                                <tr>
+                                    <td>Ice Creame</td>
+                                    <td>Vanila</td>
+                                    <td>small cup</td>
+                                    <td>69</td>
+                                </tr>
+                                <tr>
+                                    <td>Ice Creame</td>
+                                    <td>Vanila</td>
+                                    <td>small cup</td>
+                                    <td>69</td>
+                                </tr>
+                                <tr>
+                                    <td>Ice Creame</td>
+                                    <td>Vanila</td>
+                                    <td>small cup</td>
+                                    <td>69</td>
+                                </tr>
+                                <tr>
+                                    <td>Ice Creame</td>
+                                    <td>Vanila</td>
+                                    <td>small cup</td>
+                                    <td>69</td>
+                                </tr>
+                                <tr>
+                                    <td>Choclate</td>
+                                    <td>Kit kat</td>
+                                    <td>1 bar</td>
+                                    <td>90</td>
+                                </tr>
+                                <tr>
+                                    <td>Choclate</td>
+                                    <td>Kit kat</td>
+                                    <td>1 bar</td>
+                                    <td>90</td>
+                                </tr>
+                                <tr>
+                                    <td>Choclate</td>
+                                    <td>Kit kat</td>
+                                    <td>1 bar</td>
+                                    <td>90</td>
+                                </tr>
+                                <tr>
+                                    <td>Choclate</td>
+                                    <td>Kit kat</td>
+                                    <td>1 bar</td>
+                                    <td>90</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div><!-- .animated -->
+</div><!-- .content -->
+@*<script type="application/javascript">
+        $('input[type="file"]').change(function(e){
+            var fileName = e.target.files[0].name;
+            $('.custom-file-label').html(fileName);
+        });
+    </script>*@

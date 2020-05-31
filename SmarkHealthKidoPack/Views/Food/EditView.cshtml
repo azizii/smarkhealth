@@ -1,0 +1,67 @@
+﻿@model SmarkHealthKidoPack.ViewModel.Foodviewmode
+
+@{
+    ViewData["Title"] = "EditView";
+    Layout = "~/Views/Shared/AdminLayOut.cshtml";
+}
+
+<div class="container">
+
+    <h4>Food</h4>
+    <hr />
+    @*@{var photoPath = "~/Images/" + (Model.photopath ?? "noimage.jpg"); }*@
+
+    <div class="row">
+        <div class="col-md-4">
+            <form enctype="multipart/form-data" asp-action="EditView">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="FoodId" />
+                <div class="form-group">
+                    <label class="control-label">Category Name</label>
+                    @Html.DropDownListFor(model => model.foodCategoryId, new SelectList(ViewBag.foodCategoryId, "Value", "Text"), new { @class = "dropdown-toggle btn btn-primary" }))
+                    @*<select asp-for="foodCategory.FoodCategoryName" class ="form-control" asp-items="ViewBag.foodCategoryId"></select>*@
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="foodName" class="control-label"></label>
+                    <input asp-for="foodName" class="form-control" />
+                    <span asp-validation-for="foodName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="price" class="control-label"></label>
+                    <input asp-for="price" class="form-control" />
+                    <span asp-validation-for="price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="foodCalories" class="control-label"></label>
+                    <input asp-for="foodCalories" class="form-control" />
+                    <span asp-validation-for="foodCalories" class="text-danger"></span>
+                </div>
+                @*<img class="card-img-top" title="Click to View Product detail"
+        style="cursor:pointer;height:160px;width:100%"
+        src="@photoPath" asp-append-version="true" style="border-radius:.60rem;" />*@
+                <div class="form-group row">
+
+                    <label asp-for="photo" class="control-label"></label>
+                    <div class="custom-file">
+                        <input asp-for="photo" class="form-control custom-file-input" />
+                        <label class="custom-file-label">
+                            choose file
+                        </label>
+                    </div>
+
+                </div>
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="FoodList">Back to List</a>
+    </div>
+
+
+</div>

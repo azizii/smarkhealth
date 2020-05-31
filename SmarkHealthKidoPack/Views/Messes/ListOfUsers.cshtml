@@ -1,0 +1,76 @@
+﻿@model IEnumerable<SmarkHealthKidoPack.Models.Guardian>
+
+@{
+    ViewData["Title"] = "ListOfUsers";
+    Layout = "~/Views/Shared/AdminLayOut.cshtml";
+}
+
+<h1>ListOfUsers</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.GuardianName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.phonenumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.adress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.passward)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mess)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+
+
+            <td>
+                @Html.DisplayFor(modelItem => item.GuardianName)
+            </td>
+
+            @foreach (var child in item.child)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => child.ChildName)
+                </td>
+            }
+        </tr>
+
+        @*<tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.child)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.phonenumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.adress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.passward)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mess.MessName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.GuardianId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.GuardianId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.GuardianId">Delete</a>
+            </td>
+        </tr>*@
+    }
+        </tbody>
+    </table>

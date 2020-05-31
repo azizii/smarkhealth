@@ -1,0 +1,60 @@
+﻿@model IEnumerable<SmarkHealthKidoPack.Models.Register>
+@{
+        ViewData["Title"] = "Index";
+        Layout = "~/Views/Shared/AdminLayOut.cshtml";
+
+        var name = ViewData["name"] as Register;
+
+    }
+
+<h1>Index</h1>
+<form asp-action="Index">
+    <button name="Buttons" value="Add"> add</button>
+    <button name="Buttons" value="display"> display</button>
+   
+
+</form>
+
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RegisterId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fingerprints)
+            </th>
+            @*<th>
+            @Html.DisplayNameFor(model => model.Passward)
+        </th>*@
+            @*<th>
+          Photo
+        </th>*@
+            <th></th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+{
+
+        <tbody>
+
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RegisterId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.fingerprints)
+                </td>
+
+                <a class="ti-close" asp-action="delete" asp-route-id="@item.RegisterId"> edit</a>
+                <a class="ti-close" asp-action="Display" asp-route-id="@item.RegisterId"> edit</a>
+
+            </tr>
+        </tbody>
+    }
+
+</table>
+
+

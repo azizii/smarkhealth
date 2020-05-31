@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewData["Title"] = "showcart";
+    Layout = "~/Views/Shared/GuardianLayout.cshtml";
+}
+
+<h1>showcart</h1>
+
+<table cellpadding="2" cellspacing="2" border="1">
+    <tr>
+        <th>Option</th>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Photo</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Sub Total</th>
+    </tr>
+    @foreach (var item in ViewBag.cart)
+    {
+    <tr>
+        <td><a asp-action="Remove" asp-route-id="@item.food.FoodId">Remove</a></td>
+        <td>@item.food.FoodId</td>
+        <td>@item.food.FoodName</td>
+       
+        <td> <img  src="~/images/09399758-c7d7-45d6-95c9-455cff68b2d1_choclate shake.jpg" style="border-radius:.60rem;"   width="193" height="130"/> </td>
+        <td>@item.food.Price</td>
+        <td>@item.quantity</td>
+        <td>@(item.food.Price * item.quantity)</td>
+    </tr>
+    }
+    <tr>
+        <td align="right" colspan="6">Sum</td>
+        <td>
+            @ViewBag.total
+        </td>
+    </tr>
+</table>
+<br>
+<a  asp-action="FoodList">Continue Shopping</a>

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<SmarkHealthKidoPack.Models.Food>
+
+@{
+    ViewData["Title"] = "FoodList";
+    Layout = "~/Views/Shared/AdminLayOut.cshtml";
+
+
+}
+
+<div class="container">
+
+    <div class="card card-login mx-auto mt-5">
+        <div class="card-header"><a class="btn btn-success" style="width:50%" asp-controller="Food" asp-action="CreateFood">Create an Food </a></div>
+
+        <div class="card-body">
+
+
+            @foreach (var item in Model)
+            {
+
+                var photoPath = "~/Images/" + (item.photopath ?? "noimage.jpg");
+
+                <div class="card rounded-circle" style="width: 20rem; height:27rem; text-align:center;display:inline-block;">
+
+
+                    <div class="card-block text-center ">
+                        <h3 class="card-title bg-warning">@item.foodCategory.FoodCategoryName</h3>
+                        <img class="card-img-top " title="Click to View Product detail"
+                             style="cursor:pointer;height:200px;width:100%"
+                             src="@photoPath" asp-append-version="true" style="border-radius:.60rem;" />
+                        <h2 class="card-title">@item.FoodName</h2>
+                        <p class="card-text">Calories: @item.foodCalories</p>
+                        <a class="ti-pencil-alt" asp-action="EditView" asp-route-id="@item.FoodId"></a> |
+                        <a class="ti-layout-grid4" asp-action="Details" asp-route-id="@item.FoodId"></a> |
+                        <a class="ti-close" asp-action="Delete" asp-route-id="@item.FoodId"></a>
+                    </div>
+
+                </div>
+            }
+
+
+
+        </div>
+    </div>
+</div>

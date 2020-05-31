@@ -1,0 +1,46 @@
+﻿@model IEnumerable<SmarkHealthKidoPack.Models.FoodCategory>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/AdminLayOut.cshtml";
+}
+
+<h1>Index</h1>
+
+<div class="card-header"><a class="btn btn-success" style="width:50%" asp-controller="FoodCategories" asp-action="Create">Create FoodCategory </a></div>
+<p>
+    <a asp-controller="Food" asp-action="CreateFood">Create Food</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FoodCategoryId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FoodCategoryName)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FoodCategoryId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FoodCategoryName)
+                </td>
+
+                <td>
+                    <a class="ti-pencil-alt" asp-action="Edit" asp-route-id="@item.FoodCategoryId"></a> |
+                    <a class="ti-layout-grid4" asp-action="Details" asp-route-id="@item.FoodCategoryId"></a> |
+                    <a class="ti-close" asp-action="Delete" asp-route-id="@item.FoodCategoryId"></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

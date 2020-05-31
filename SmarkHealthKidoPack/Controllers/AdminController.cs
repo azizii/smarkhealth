@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using SmarkHealthKidoPack.Models;
 using SmarkHealthKidoPack.ViewModel;
 
@@ -14,6 +15,7 @@ namespace SmarkHealthKidoPack.Controllers
 {
     public class AdminController : Controller
     {
+        private const string ChampionsImageFolder = "images";
         public readonly MainContext _Context;
         public IHostingEnvironment HostingEnvironment { get; }
 
@@ -22,46 +24,37 @@ namespace SmarkHealthKidoPack.Controllers
             _Context = context;
             HostingEnvironment = hostingEnvironment;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
-       
-
-        public IActionResult LogIn()
-        {
-            return View();
-        }
-        public IActionResult Register()
-        {
-            return View();
-        }
-        [HttpPost]
-        public IActionResult Register(AdminViewModel admin)
 
 
-        {
+        //public JsonResult getadmin()
+        //{
 
 
-            if (ModelState.IsValid)
-            {
-                string uniqueFileName = null;
-                if (admin.Photo != null)
-                {
-                    string uploadFolder = Path.Combine(HostingEnvironment.WebRootPath, "images");
-                    uniqueFileName = Guid.NewGuid().ToString() + "_" + admin.Photo.FileName;
-                    string filePath = Path.Combine(uploadFolder, uniqueFileName);
-                    admin.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
 
-                }
-                Admin newAdmin = new Admin
-                {
+        //    //var path = Path.Combine(HostingEnvironment.WebRootPath, ChampionsImageFolder);
 
-                    AdminName = admin.AdminName,
-                    Passward = admin.password,
-                    photopath = uniqueFileName
-                };
-                _Context.Add(newAdmin);
+        //    //var json = JsonConvert.SerializeObject(path);
+
+        //    //return Json(json);
+        //    List<Admin> ad = _Context.admin.ToList();
+
+        //    string serverPathToChampionsFolder = "wwwroot/images/";
+
+        //    List<string> intList = new List<string>();
+
+        //    foreach (var champion in ad)
+        //    {
+
+
+        //        intList.Add(serverPathToChampionsFolder + champion.photopath);
+        //    }
+        //    //var filePath = Path.Combine();
+        //    ////var filePath = Path.Combine(HostingEnvironment.WebRootPath, "images");
+
+        //    var json = JsonConvert.SerializeObject(intList);
+
+        //    return Json(json);
+        //}
 
 
 
@@ -69,141 +62,195 @@ namespace SmarkHealthKidoPack.Controllers
 
 
 
-                _Context.SaveChanges();
-                
-                return RedirectToAction(nameof(LogIn));
-
-            }
-            return View(admin);
-        }
-
-        public IActionResult Welcome(string user, string pass)
-        {
-            var uni = _Context.admin
-                  .FirstOrDefault(m => m.AdminName == user);
-
-            if (uni != null)
-            {
-
-                //TempData["Message"] = user;
-                HttpContext.Session.SetString("sessionUser", Newtonsoft.Json.JsonConvert.SerializeObject(uni));
-
-               
-            }
-            else
-            {
-                return RedirectToAction(nameof(LogIn));
-            }
-            return View();
-        }
+        //        public IActionResult Register()
+        //        {
+        //            add();
+        //            return View();
+        //        }
+        //        [HttpPost]
+        //        public IActionResult Register(AdminViewModel admin)
 
 
-     
-
-        public IActionResult CreateFood()
-        {
-            return View();
-        }
-        [HttpPost]
-        public IActionResult CreateFood(Foodviewmode food)
-        {
-            if (ModelState.IsValid)
-            {
-                string uniqueFileName = null;
-                if (food.photo != null)
-                {
-                    string uploadFolder = Path.Combine(HostingEnvironment.WebRootPath, "images");
-                    uniqueFileName = Guid.NewGuid().ToString() + "_" + food.photo.FileName;
-                    string filePath = Path.Combine(uploadFolder, uniqueFileName);
-                    food.photo.CopyTo(new FileStream(filePath, FileMode.Create));
-
-                }
-                Food newfood = new Food
-                {
-
-                    FoodName = food.foodName,
-                    foodCalories = food.foodCalories,
-                    photopath = uniqueFileName
-                };
-
-                //if (Image != null)
-                _Context.Add(newfood);
+        //        {
+        //            //if(admin.AdminName!=null || admin.password !=null)
+        //            //{
 
 
 
+        //                if (ModelState.IsValid)
+        //                {
+
+        //                    string uniqueFileName = Photopathadmin(admin);
+
+
+        //                    Admin newAdmin = new Admin
+        //                    {
+
+        //                        AdminName = admin.AdminName,
+        //                        Passward = admin.password,
+        //                        photopath = uniqueFileName
+        //                    };
+        //                    _Context.Add(newAdmin);
+
+        //                    _Context.SaveChanges();
+
+        //                    return RedirectToAction(nameof(LogIn));
+        //                }
+        //            //}
+        //            return View(admin);
+        //        }
+
+        //        public void add()
+        //        {
+        //            Admin newAdmin = new Admin
+        //            {
+
+        //                AdminName = "",
+        //                Passward = "",
+        //                photopath = ""
+        //            };
+        //            _Context.Add(newAdmin);
+
+        //            _Context.SaveChanges();
+        //        }
+        //        public IActionResult LogIn()
+        //        {
+
+        //            if (HttpContext.Session.GetString("sessionUser") != null)
+        //            {
+        //                return RedirectToAction(nameof(Welcome));
+        //            }
+        //            ViewData["Test"] = false;
+        //            return View();
+        //        }
+
+        //        [HttpPost]
+        //        public IActionResult LogIn(Admin admin)
+        //        {
+        //            var adminname = _Context.admin
+        //                  .FirstOrDefault(m => m.AdminName == admin.AdminName && m.Passward ==admin.Passward);
+        //            //var passward = _Context.admin
+        //            //      .FirstOrDefault(m => m.Passward == admin.Passward);
+        //            if (adminname != null )/* && passward !=null*/
+        //                {
+        // //create session
+        //                HttpContext.Session.SetString("sessionUser", Newtonsoft.Json.JsonConvert.SerializeObject(adminname));
+        //                return RedirectToAction(nameof(Welcome));
+        //               }
+        //            ViewData["Test"] = true;
+
+        //            return View(admin);
+        //        }
+
+        //        public IActionResult Welcome()
+        //        {
+
+        //            if (HttpContext.Session.GetString("sessionUser") == null)
+        //            {
+        //                return RedirectToAction(nameof(LogIn));
+
+
+
+        //            }
+
+        //            var welcomeVM = new WelcomeViewModel
+        //            {
+        //                CustomersCount = 0,
+        //                FoodCount = _Context.food.Count(x => true),
+        //                adminCount = _Context.admin.Count(x => true),
+        //                categoryCount = _Context.foodCategories.Count(x => true),
+        //                food=_Context.food.Include(m => m.foodCategory).ToList()
+        //            };
+        //            IList<Food> studentList = _Context.food.ToList();
 
 
 
 
-                _Context.SaveChanges();
-                return RedirectToAction(nameof(FoodList));
-
-            }
-
-            return View();
-        }
-
-        public IActionResult FoodList()
-        {
+        //            return View(welcomeVM);
+        //        }
 
 
-            return View(_Context.food.ToList());
-        }
-        public async Task<IActionResult> EditView(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            //photopath
-            var food = await _Context.food.FindAsync(id);
-            if (food == null)
-            {
-                return NotFound();
-            }
-            //IFormFile
-            //Foodviewmode newfood = new Foodviewmode
-            //{
-            //    FoodId = food.FoodId,
-            //    foodName = food.FoodName,
-            //    foodCalories = food.foodCalories,
-            //    photo=food.photopath
-
-            //};
-
-            return View(food);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditView(int id, Food food)
-        {
-            if (id != food.FoodId)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _Context.Update(food);
-                    await _Context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                   
-                }
-                return RedirectToAction(nameof(FoodList));
-            }
-            return View(food);
-        }
 
 
-        private bool FoodExists(int id)
-        {
-            return _Context.food.Any(e => e.FoodId == id);
-        }
 
+
+        //        public string Photopathadmin(AdminViewModel admin)
+        //        {
+
+        //            string uniqueFileName = null;
+        //            if (admin.Photo != null)
+        //            {
+        //                string uploadFolder = Path.Combine(HostingEnvironment.WebRootPath, "images");
+        //                uniqueFileName = Guid.NewGuid().ToString() + "_" + admin.Photo.FileName;
+        //                string filePath = Path.Combine(uploadFolder, uniqueFileName);
+        //                admin.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
+
+        //            }
+        //            return uniqueFileName;
+        //        }
+
+
+        //        public ActionResult LogOut()
+        //        {
+        //            //clear session
+        //            HttpContext.Session.Clear();
+        //            return RedirectToAction(nameof(LogIn));
+        //            //return View("LogIn");
+        //        }
+
+
+        //        public IActionResult myprofile()
+        //        {
+        //            var userinfo = JsonConvert.DeserializeObject<Admin>(HttpContext.Session.GetString("sessionUser"));
+        //            int id = userinfo.AdminId;
+        //            var adminpro = _Context.admin.FirstOrDefault(m => m.AdminId == id);
+        //            Admin ad = new Admin
+        //            {
+        //                AdminId=adminpro.AdminId,
+        //                AdminName = adminpro.AdminName,
+        //             photopath= adminpro.photopath
+
+
+        //            };
+
+
+        //            return View(ad);
+        //        }
+        //        public IActionResult SeeAdmins()
+        //        {
+
+        //            return View(_Context.admin.ToList());
+        //        }
+        //        public IActionResult Dashboard()
+        //        {
+        //            return View();
+        //        }
+        //        public IActionResult ChildList()
+        //        {
+        //            List<Child> products = new List<Child>() {
+        //                new Child()
+        //                {
+        //                   ChildId = 1,
+        //                   ChildName = "Zain",
+
+
+        //                },
+        //                new Child()
+        //                {
+        //                     ChildId = 2,
+        //                   ChildName = "arshad",
+        //                },
+        //                new Child()
+        //                {
+        //                 ChildId = 3,
+        //                   ChildName = "Wajahat",
+        //                }
+        //            };
+        //            ViewBag.products = products;
+
+        //            return View();
+        //        }
+
+    
     }
 }

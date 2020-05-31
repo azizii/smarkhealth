@@ -1,0 +1,65 @@
+﻿@model IEnumerable<SmarkHealthKidoPack.Models.Admin>
+
+@{
+    ViewData["Title"] = "SeeAdmins";
+    Layout = "~/Views/Shared/AdminLayOut.cshtml";
+  
+}
+
+
+
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AdminName)
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Passward)
+                </th>*@
+            @*<th>
+                  Photo
+                </th>*@
+            <th></th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+
+        <tbody>
+
+            
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AdminName)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Passward)
+                    </td>*@
+                @*<td>
+                        <img title="Click to View Product detail"
+                             style="cursor:pointer;height:200px;width:100%"
+                             src="@photoPath" asp-append-version="true" style="border-radius:.60rem;" />
+                    </td>*@
+
+            </tr>
+        </tbody>
+    }
+
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

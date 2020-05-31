@@ -1,0 +1,71 @@
+﻿@model SmarkHealthKidoPack.ViewModel.guardianchildViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/GuardianLayout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        <a asp-action="ChildRegister">Register Child</a>
+        <a asp-action="LogOut">LogOut</a>
+        <a asp-action="FoodList">FoodList</a>
+    </p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Child name
+              
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.guardian.GuardianName)
+            </th>
+            <th>
+                Age
+            </th>
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+
+
+
+@foreach (var item in Model.children) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ChildName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Guardian.GuardianName)
+                
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.age)
+            </td>
+            <td>
+                <a asp-action="FoodList" asp-route-id="@item.ChildId">select food</a>
+            </td>
+            @*<td>
+            @Html.DisplayFor(modelItem => item.passward)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.child)
+        </td>*@
+            
+        </tr>
+}
+    </tbody>
+</table>
+</body>
+</html>
