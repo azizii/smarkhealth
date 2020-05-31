@@ -1,0 +1,54 @@
+﻿@model SmarkHealthKidoPack.Models.Food
+
+@{
+    ViewData["Title"] = "EditView";
+    Layout = "~/Views/Shared/AdminLayOut.cshtml";
+}
+
+<h1>EditView</h1>
+
+<h4>Food</h4>
+<hr />
+   @{var photoPath = "~/Images/" + (Model.photopath ?? "noimage.jpg"); }
+
+<div class="row">
+    <div class="col-md-4">
+        <form enctype="multipart/form-data" ss asp-action="EditView">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="FoodId" />
+            <div class="form-group">
+                <label asp-for="FoodName" class="control-label"></label>
+                <input asp-for="FoodName" class="form-control" />
+                <span asp-validation-for="FoodName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="foodCalories" class="control-label"></label>
+                <input asp-for="foodCalories" class="form-control" />
+                <span asp-validation-for="foodCalories" class="text-danger"></span>
+            </div>
+            <img class="card-img-top" title="Click to View Product detail"
+                 style="cursor:pointer;height:160px;width:100%"
+                 src="@photoPath" asp-append-version="true" style="border-radius:.60rem;" />
+            <div class="form-group row">
+
+                <label asp-for="photopath" class="control-label"></label>
+                <div class="custom-file">
+                    <input asp-for="photopath" class="form-control custom-file-input" />
+                    <label class="custom-file-label">
+                        choose file
+                    </label>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

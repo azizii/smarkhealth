@@ -1,0 +1,49 @@
+﻿@model SmarkHealthKidoPack.ViewModel.Foodviewmode
+@{
+    ViewData["Title"] = "FoodView";
+    Layout = "~/Views/Shared/AdminLayOut.cshtml";
+}
+
+
+
+    <div class="container">
+        <div class="card card-login mx-auto mt-5">
+            <div class="card-header">Login</div>
+            <div class="card-body">
+                <form enctype="multipart/form-data" asp-action="FoodView">
+                    <div class="form-group">
+                        <label asp-for="foodName" class="control-label"></label>
+                        <input asp-for="foodName" class="form-control" />
+                        <span asp-validation-for="foodName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="foodCalories" class="control-label"></label>
+                        <input asp-for="foodCalories" class="form-control" />
+                        <span asp-validation-for="foodCalories" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group row">
+
+                        <label asp-for="photo" class="control-label"></label>
+                        <div class="custom-file">
+                            <input asp-for="photo" class="form-control custom-file-input" />
+                            <label class="custom-file-label">
+                                choose file
+                            </label>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </form>
+                <div class="text-center">
+                    <a class="d-block small mt-3" href="register.html">Register an Account</a>
+                    <a class="d-block small" href="forgot-password.html">Forgot Password?</a>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+
