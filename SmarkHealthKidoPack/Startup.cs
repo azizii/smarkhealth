@@ -36,15 +36,30 @@ namespace SmarkHealthKidoPack
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromSeconds(3600);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
             });
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
 
-         
-            services.AddDbContext<MainContext>(options =>
-       options.UseSqlServer(Configuration.GetConnectionString("MainContext")));
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
+                services.AddDbContext<MainContext>(options =>
+                   options.UseSqlServer(Configuration.GetConnectionString("MainContextprod")));
+            else
+                services.AddDbContext<MainContext>(options =>
+             options.UseSqlServer(Configuration.GetConnectionString("MainContext")));
+            services.BuildServiceProvider().GetService<MainContext>().Database.Migrate();
+
+
+
+
+
+
+
+
+
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 

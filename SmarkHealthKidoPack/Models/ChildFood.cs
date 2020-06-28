@@ -8,6 +8,8 @@ namespace SmarkHealthKidoPack.Models
 {
     public class ChildFood
     {
+        
+
         public int FoodId { get; set; }
 
         public Food Food { get; set; }

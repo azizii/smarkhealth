@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SmarkHealthKidoPack.Migrations
 {
-    public partial class ibdskfja : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -31,6 +31,20 @@ namespace SmarkHealthKidoPack.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ajis", x => x.ajiId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "childfoodviewmodels",
+                columns: table => new
+                {
+                    childfoodviewmodelid = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    childid = table.Column<int>(nullable: false),
+                    foodid = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_childfoodviewmodels", x => x.childfoodviewmodelid);
                 });
 
             migrationBuilder.CreateTable(
@@ -237,6 +251,9 @@ namespace SmarkHealthKidoPack.Migrations
 
             migrationBuilder.DropTable(
                 name: "childFoods");
+
+            migrationBuilder.DropTable(
+                name: "childfoodviewmodels");
 
             migrationBuilder.DropTable(
                 name: "Registers");

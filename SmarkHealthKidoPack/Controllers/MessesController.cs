@@ -56,6 +56,39 @@ namespace SmarkHealthKidoPack.Controllers
             }
             return View(mess);
         }
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Mess>>> GetMesses()
+        {
+
+            //All food table record
+            var ad1 = _Context.Messes.ToList();
+
+
+
+            return ad1;
+        }
+        /// <summary>
+        /// get request for food
+        /// </summary>
+        /// <param name="childfood"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public string PostMessage([FromBody]String message)
+        {
+           
+                return JsonConvert.SerializeObject("message send succesfully");
+          
+
+
+            ////  }
+            //    catch (Exception ex)
+            //  {
+            //     return JsonConvert.SerializeObject(ex.Message);
+            // }
+
+
+        }
+
 
         public async Task<IActionResult> LogIn()
         {

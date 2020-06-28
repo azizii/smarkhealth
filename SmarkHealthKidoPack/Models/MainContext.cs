@@ -25,8 +25,9 @@ namespace SmarkHealthKidoPack.Models
         public DbSet<abdullah> abdullahs { get; set; }
         public DbSet<ajiabdullah> ajiabdullahs { get; set; }
         public DbSet<ChildFood> childFoods { get; set; }
+        public DbSet<childfoodviewmodel>  childfoodviewmodels { get; set; }
 
-
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<FoodCategory>()

@@ -21,7 +21,52 @@ namespace SmarkHealthKidoPack.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// get all messes
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Mess>>> GetMesses()
+        {
+           // string serverPathTowwwrootFolder = "wwwroot/images/";
+            //All food table record
+            var ad = _context.Messes.ToList();
 
+          
+
+            return ad;
+        }
+        /// <summary>
+        /// register guardianthroug api
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public string PostRegister([FromBody]Guardian value)
+        {
+            if (!_context.guardians.Any(user => user.GuardianName.Equals(value.GuardianName)))
+            {
+                Guardian tblUser = new Guardian();
+                tblUser.GuardianName = value.GuardianName;
+                tblUser.phonenumber = value.phonenumber;
+                tblUser.passward = value.passward;
+                tblUser.messId = value.messId;
+                try
+                {
+                    _context.Add(tblUser);
+                    _context.SaveChanges();
+                    return JsonConvert.SerializeObject("register succefully");
+                }
+                catch (Exception ex)
+                {
+                    return JsonConvert.SerializeObject(ex.Message);
+                }
+            }
+            else
+            {
+                return JsonConvert.SerializeObject("User is existing in database");
+            }
+        }
 
 
         public async Task<IActionResult> Register()
@@ -60,7 +105,40 @@ namespace SmarkHealthKidoPack.Controllers
         }
 
 
-
+        /// <summary>
+        /// log in api guardian
+        /// </summary>
+        /// <returns></returns>
+        /// 
+        [HttpPost]
+        public string PostlogIn([FromBody]Guardian value)
+        {
+           
+                Guardian guar = _context.guardians
+                 .FirstOrDefault(m => m.GuardianName == value.GuardianName && m.passward == value.passward);
+                if(guar != null)
+                {
+                HttpContext.Session.SetString("Guardian", Newtonsoft.Json.JsonConvert.SerializeObject(guar));
+                return JsonConvert.SerializeObject("LogIn succefully");
+            }
+            else
+            {
+                return JsonConvert.SerializeObject("LgIn not succefull");
+            }
+            
+            //var guardianobj = _context.guardians
+            //   .FirstOrDefault(m => m.GuardianName == value.GuardianName && m.passward == value.passward);
+            //if (guardianobj != null)/* && passward !=null*/
+            //{
+          
+              
+             
+            //}
+            //else
+            //{
+            //    return JsonConvert.SerializeObject("User is existing in database");
+            //}
+         }
         public async Task<IActionResult> LogIn()
         {
             if (HttpContext.Session.GetString("Guardian") != null)
@@ -94,7 +172,50 @@ namespace SmarkHealthKidoPack.Controllers
             return View();
         }
 
+        /// <summary>
+        /// get all food api
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        ///      var food = _context.food.Include(c => c.foodCategory).Where(m => m.foodCategory.MessId == qid).ToList();
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Food>>> Getfood()
+        {
+            Guardian userinfo = JsonConvert.DeserializeObject<Guardian>(HttpContext.Session.GetString("Guardian"));
+             var food = _context.food.Include(c1 => c1.foodCategory).Where(m => m.foodCategory.MessId == userinfo.messId).ToList();
+         
+            string serverPathTowwwrootFolder = "images/";
+            var ad = _context.food.ToList();
+            //All food table record
+            //     List<Food> ad = _context.food.ToList();
 
+            var c = new List<Food>();
+            for (int i = 0; i < food.Count; i++)
+            {
+                c.Add(new Food
+                {
+                    FoodId = food[i].FoodId,
+                    FoodName= food[i].FoodName,
+                    Price= food[i].Price,
+                    foodCalories= food[i].foodCalories,
+                    foodCategoryId= food[i].foodCategoryId
+
+                });
+
+                //if (cart[i].food.FoodId.Equals())
+                //{
+                //    return i;
+                //}
+            }
+
+
+            for (int i = 0; i < c.Count; i++)
+            {
+                c[i].photopath = serverPathTowwwrootFolder + ad[i].photopath;
+            }
+
+            return c;
+        }
         public async Task<IActionResult> FoodList(int? id)
         {
 
@@ -171,6 +292,103 @@ namespace SmarkHealthKidoPack.Controllers
         }
 
 
+
+        /// <summary>
+        /// getchid
+        /// </summary>
+        /// <returns></returns>
+        /// 
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Child>>>  GetChild()
+        {
+            Guardian userinfo = JsonConvert.DeserializeObject<Guardian>(HttpContext.Session.GetString("Guardian"));
+
+            Guardian guardian1 = _context.guardians.FirstOrDefault(m => m.GuardianId == userinfo.GuardianId);
+
+            List<Child> childs = _context.children.Where(m => m.guardianId == userinfo.GuardianId).ToList();
+            //All food table record
+
+
+            var c = new List<Child>();
+            for (int i = 0; i < childs.Count; i++)
+            {
+                c.Add(new Child
+                {
+                    ChildId = childs[i].ChildId,
+                    ChildName = childs[i].ChildName,
+                   
+
+                });
+
+                //if (cart[i].food.FoodId.Equals())
+                //{
+                //    return i;
+                //}
+            }
+
+
+
+
+
+            return c;
+        }
+
+
+        /// <summary>
+        /// delete child
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+       
+        
+        
+        public async Task<IActionResult> deletechild(int? id)
+        {
+            var childid= await _context.children.FindAsync(id);
+            _context.children.Remove(childid);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+
+        /// <summary>
+        /// register child
+        /// </summary>
+        /// <returns></returns>
+
+        [HttpPost]
+        public string PostRegisterChild([FromBody]Child child)
+        {
+
+            var userinfo = JsonConvert.DeserializeObject<Guardian>(HttpContext.Session.GetString("Guardian"));
+            int id = userinfo.GuardianId;
+
+            Guardian g = _context.guardians.FirstOrDefault(M => M.GuardianId == id);
+            Child c = new Child
+            {
+                ChildName = child.ChildName,
+                age = child.age,
+                height = child.height,
+                weight = child.weight,
+                password = child.password,
+                guardianId = id
+
+            };
+           
+            try
+                {
+                _context.Add(c);
+
+                _context.SaveChanges();
+                return JsonConvert.SerializeObject("register succefully");
+                }
+                catch (Exception ex)
+                {
+                    return JsonConvert.SerializeObject(ex.Message);
+                }
+            
+         
+        }
         public async Task<IActionResult> ChildRegister()
         {
 
@@ -448,6 +666,75 @@ namespace SmarkHealthKidoPack.Controllers
            
             return RedirectToAction("Index");
         }
+
+
+        /// <summary>
+        /// post method for selected  food for child
+        /// </summary>
+        /// <param name="child"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public string PostChildfood([FromBody]int[] childfood)
+        {
+            Food food = null;
+            int childid = childfood[0];
+            var foods = new List<Food>();
+
+            for (int i=1; i<childfood.Length; i++)
+            {
+                foods.Add(food = _context.food.Find(childfood[i]));
+            }
+
+
+            if (foods.Count != 0)
+            {
+              //  var c = new List<childfoodviewmodel>();
+                for (int i = 0; i < foods.Count; i++)
+                {
+                    childfoodviewmodel c = new childfoodviewmodel {
+                        foodid = foods[i].FoodId,
+                       childid= childid
+                    };
+
+                    _context.Add(c);
+                    //c.Add(new childfoodviewmodel
+                    //{
+                    //    foodid = foods[i].FoodId,
+                    //    childid = childid
+
+                    //});
+
+                    //if (cart[i].food.FoodId.Equals())
+                    //{
+                    //    return i;
+                    //}
+                }
+
+                //    try
+                //   {
+                //foreach (childfoodviewmodel employee in c)
+                //{
+                //    _context.Add(employee);
+                //}
+
+                _context.SaveChanges();
+                return JsonConvert.SerializeObject("food save succefully");
+            }
+            else
+            {
+                return JsonConvert.SerializeObject("please select food ");
+            }
+
+       
+          ////  }
+        //    catch (Exception ex)
+          //  {
+           //     return JsonConvert.SerializeObject(ex.Message);
+           // }
+
+
+        }
+
 
         public IActionResult Remove(int id)
         {

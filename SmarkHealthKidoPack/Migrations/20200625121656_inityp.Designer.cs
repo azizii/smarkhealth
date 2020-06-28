@@ -9,8 +9,8 @@ using SmarkHealthKidoPack.Models;
 namespace SmarkHealthKidoPack.Migrations
 {
     [DbContext(typeof(MainContext))]
-    [Migration("20200514212704_ibdskfja")]
-    partial class ibdskfja
+    [Migration("20200625121656_inityp")]
+    partial class inityp
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -195,6 +195,21 @@ namespace SmarkHealthKidoPack.Migrations
                     b.HasIndex("ajiId");
 
                     b.ToTable("ajiabdullahs");
+                });
+
+            modelBuilder.Entity("SmarkHealthKidoPack.Models.childfoodviewmodel", b =>
+                {
+                    b.Property<int>("childfoodviewmodelid")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("childid");
+
+                    b.Property<int>("foodid");
+
+                    b.HasKey("childfoodviewmodelid");
+
+                    b.ToTable("childfoodviewmodels");
                 });
 
             modelBuilder.Entity("SmarkHealthKidoPack.Models.Child", b =>

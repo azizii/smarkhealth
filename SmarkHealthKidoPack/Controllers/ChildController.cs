@@ -19,7 +19,7 @@ namespace SmarkHealthKidoPack.Controllers
     
 
         }
-
+      
         public IActionResult LogIn()
         {
             ViewData["Test"] = false;
@@ -65,6 +65,9 @@ namespace SmarkHealthKidoPack.Controllers
         {
             int childid = Convert.ToInt32(TempData["id"].ToString());
             var contextClass = _Context.childFoods.Include(a => a.child).Include(a => a.Food).Where(c=>c.ChildId== childid);
+            ChildFood c1 = contextClass.FirstOrDefault(m => m.ChildId == childid);
+            ViewBag.child = c1.child.ChildName;
+            TempData["id"] = c1.ChildId;
             return View(contextClass.ToList());
         }
     }

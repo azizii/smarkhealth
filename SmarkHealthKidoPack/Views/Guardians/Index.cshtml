@@ -48,7 +48,7 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Guardian.GuardianName)
-                
+
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.age)
@@ -56,13 +56,16 @@
             <td>
                 <a asp-action="FoodList" asp-route-id="@item.ChildId">select food</a>
             </td>
+            <td>
+                <a asp-action="deletechild" asp-route-id="@item.ChildId">delete child</a>
+            </td>
             @*<td>
             @Html.DisplayFor(modelItem => item.passward)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.child)
         </td>*@
-            
+
         </tr>
 }
     </tbody>

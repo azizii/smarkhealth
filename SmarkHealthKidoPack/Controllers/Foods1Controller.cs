@@ -35,7 +35,7 @@ namespace SmarkHealthKidoPack.Controllers
 
             return  ad;
         }
-
+      
         // GET: api/Foods1/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Food>> GetFood(int id)
