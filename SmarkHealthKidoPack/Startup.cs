@@ -44,6 +44,8 @@ namespace SmarkHealthKidoPack
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
 
+
+
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
                 services.AddDbContext<MainContext>(options =>
                    options.UseSqlServer(Configuration.GetConnectionString("MainContextprod")));

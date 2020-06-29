@@ -639,13 +639,13 @@ namespace SmarkHealthKidoPack.Controllers
           //  int childid = Convert.ToInt32(TempData["ChildId"].ToString());
 
             List<ProductViewModel> cart = SessionHelper.GetObjectFromJson<List<ProductViewModel>>(HttpContext.Session, "cart");
-           var c = new List<ChildFood>();
+           var c = new List<childfoodviewmodel>();
             for (int i = 0; i < cart.Count; i++)
             {
-                c.Add(new ChildFood
+                c.Add(new childfoodviewmodel
                 {
-                    FoodId=cart[i].food.FoodId,
-                    ChildId= qid
+                     foodid=cart[i].food.FoodId,
+                    childid= qid
 
                 });
         
@@ -655,9 +655,9 @@ namespace SmarkHealthKidoPack.Controllers
                 //}
             }
 
-            foreach (ChildFood employee in c)
+            foreach (childfoodviewmodel employee in c)
             {
-                _context.childFoods.Add(employee);
+                _context.childfoodviewmodels.Add(employee);
             }
 
 
