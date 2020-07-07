@@ -18,10 +18,16 @@
     <title>Admin Panel</title>
     <meta name="description" content="Admin Panel">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+   
 
 
-    <!---                test purpose-->
-
+       <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!---                admin list-->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
     <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
     <link rel="shortcut icon" href="https://i.imgur.com/QRAUqs9.png">
@@ -121,7 +127,7 @@
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-table"></i><a class="nav-link text-dark" asp-area="" asp-controller="Messes" asp-action="ListOfUsers">User's List</a></li>
                             <li><i class="fa fa-table"></i><a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="SeeAdmins">All Admin</a></li>
-
+                            <li><i class="fa fa-table"></i><a class="nav-link text-dark" asp-area="" asp-controller="Messes" asp-action="SeeMessages">See Messages</a></li>
                         </ul>
                     </li>
                     @*<li class="menu-item-has-children dropdown">

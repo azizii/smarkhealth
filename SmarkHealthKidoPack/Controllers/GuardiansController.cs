@@ -211,7 +211,7 @@ namespace SmarkHealthKidoPack.Controllers
 
             for (int i = 0; i < c.Count; i++)
             {
-                c[i].photopath = serverPathTowwwrootFolder + ad[i].photopath;
+                c[i].photopath = serverPathTowwwrootFolder + food[i].photopath;
             }
 
             return c;
@@ -230,7 +230,7 @@ namespace SmarkHealthKidoPack.Controllers
 
             }
            // qid = Convert.ToInt32(TempData["messid"].ToString());
-            if (TempData["status"] != null)
+            if (TempData["status123"] != null)
             {
                 var cart = SessionHelper.GetObjectFromJson<List<ProductViewModel>>(HttpContext.Session, "cart");
                 ViewBag.cart = cart;
@@ -558,7 +558,7 @@ namespace SmarkHealthKidoPack.Controllers
                if (cart.Count > 0)
                 {
 
-                    TempData["status"] = 1;
+                    TempData["status123"] = 1;
                     
                   //  TempData["status"] = "1";
                 }
@@ -586,7 +586,7 @@ namespace SmarkHealthKidoPack.Controllers
                 if (cart.Count > 0)
                 {
 
-                    TempData["status"] = 1;
+                    TempData["status123"] = 1;
 
                     //  TempData["status"] = "1";
                 }

@@ -9,6 +9,6 @@ namespace SmarkHealthKidoPack.Models
     {
         public int abdullahId { get; set; }
         public string Name { get; set; }
-        public virtual ICollection<ajiabdullah> ajiabdullahs { get; set; }
+     //   public virtual ICollection<ajiabdullah> ajiabdullahs { get; set; }
     }
 }

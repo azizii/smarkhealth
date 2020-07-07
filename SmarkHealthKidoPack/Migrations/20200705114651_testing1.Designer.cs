@@ -3,21 +3,40 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmarkHealthKidoPack.Models;
 
 namespace SmarkHealthKidoPack.Migrations
 {
     [DbContext(typeof(MainContext))]
-    partial class MainContextModelSnapshot : ModelSnapshot
+    [Migration("20200705114651_testing1")]
+    partial class testing1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("SmarkHealthKidoPack.Models.Admin", b =>
+                {
+                    b.Property<int>("AdminId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AdminName")
+                        .IsRequired();
+
+                    b.Property<string>("Passward")
+                        .IsRequired();
+
+                    b.HasKey("AdminId");
+
+                    b.ToTable("Admin");
+                });
 
             modelBuilder.Entity("SmarkHealthKidoPack.Models.Child", b =>
                 {
@@ -108,8 +127,6 @@ namespace SmarkHealthKidoPack.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Balance");
-
                     b.Property<string>("GuardianName");
 
                     b.Property<string>("adress");
@@ -146,27 +163,6 @@ namespace SmarkHealthKidoPack.Migrations
                     b.ToTable("Messes");
                 });
 
-            modelBuilder.Entity("SmarkHealthKidoPack.Models.Messages", b =>
-                {
-                    b.Property<int>("MessagesId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("GuardianId");
-
-                    b.Property<string>("Messagebody");
-
-                    b.Property<DateTime>("messagedate");
-
-                    b.Property<int>("messids");
-
-                    b.HasKey("MessagesId");
-
-                    b.HasIndex("GuardianId");
-
-                    b.ToTable("Messages");
-                });
-
             modelBuilder.Entity("SmarkHealthKidoPack.Models.Register", b =>
                 {
                     b.Property<int>("RegisterId")
@@ -178,6 +174,25 @@ namespace SmarkHealthKidoPack.Migrations
                     b.HasKey("RegisterId");
 
                     b.ToTable("Registers");
+                });
+
+            modelBuilder.Entity("SmarkHealthKidoPack.Models.Testing", b =>
+                {
+                    b.Property<int>("TestingId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("AdminId");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("adminname");
+
+                    b.HasKey("TestingId");
+
+                    b.HasIndex("AdminId");
+
+                    b.ToTable("messages2");
                 });
 
             modelBuilder.Entity("SmarkHealthKidoPack.Models.childfoodviewmodel", b =>
@@ -240,12 +255,11 @@ namespace SmarkHealthKidoPack.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("SmarkHealthKidoPack.Models.Messages", b =>
+            modelBuilder.Entity("SmarkHealthKidoPack.Models.Testing", b =>
                 {
-                    b.HasOne("SmarkHealthKidoPack.Models.Guardian", "Guardian")
-                        .WithMany("Messages")
-                        .HasForeignKey("GuardianId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("SmarkHealthKidoPack.Models.Admin", "admin")
+                        .WithMany()
+                        .HasForeignKey("AdminId");
                 });
 #pragma warning restore 612, 618
         }

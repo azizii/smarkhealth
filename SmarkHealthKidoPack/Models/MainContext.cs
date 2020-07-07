@@ -19,14 +19,14 @@ namespace SmarkHealthKidoPack.Models
         public DbSet<FoodCategory> foodCategories { get; set; }
         public DbSet<Guardian> guardians { get; set; }
         
-        public DbSet<Register> Registers { get; set; }
+       public DbSet<Register> Registers { get; set; }
         public DbSet<Mess> Messes { get; set; }
-        public DbSet<aji> ajis { get; set; }
-        public DbSet<abdullah> abdullahs { get; set; }
-        public DbSet<ajiabdullah> ajiabdullahs { get; set; }
+      //  public DbSet<aji> ajis { get; set; }
+       // public DbSet<abdullah> abdullahs { get; set; }
+      //  public DbSet<ajiabdullah> ajiabdullahs { get; set; }
         public DbSet<ChildFood> childFoods { get; set; }
         public DbSet<childfoodviewmodel>  childfoodviewmodels { get; set; }
-     //   public DbSet<Message2>  messages2 { get; set; }
+         public DbSet<Messages>   Messages{ get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -42,7 +42,12 @@ namespace SmarkHealthKidoPack.Models
          .HasMany(c => c.child)
          .WithOne(e => e.Guardian);
 
-              modelBuilder.Entity<ChildFood>()
+
+            modelBuilder.Entity<Guardian>()
+              .HasMany(c => c.Messages)
+              .WithOne(e => e.Guardian);
+
+            modelBuilder.Entity<ChildFood>()
                .HasKey(e => new { e.ChildId, e.FoodId});
 
           
@@ -58,7 +63,7 @@ namespace SmarkHealthKidoPack.Models
                       .HasForeignKey(pt => pt.ChildId).OnDelete(DeleteBehavior.Restrict); ;
 
 
-            modelBuilder.Entity<ajiabdullah>().HasKey(sc => new { sc.abdullahId, sc.ajiId });
+           // modelBuilder.Entity<ajiabdullah>().HasKey(sc => new { sc.abdullahId, sc.ajiId });
         }
 
 

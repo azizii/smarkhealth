@@ -71,24 +71,70 @@ namespace SmarkHealthKidoPack.Controllers
         /// get request for food
         /// </summary>
         /// <param name="childfood"></param>
-        /// <returns></returns>
+        /// <returns></returns>sss
         [HttpPost]
-        public string PostMessage([FromBody]String message)
+        public string PostMessage([FromBody]string messagebody1)
         {
-           
+            if (messagebody1 != null)
+            {
+                Guardian userinfo = JsonConvert.DeserializeObject<Guardian>(HttpContext.Session.GetString("Guardian"));
+
+
+                Messages m = new Messages
+                {
+                    Messagebody = messagebody1,
+                    GuardianId = userinfo.GuardianId,
+                    messagedate = DateTime.Now,
+                    messids= userinfo.messId
+                };
+                _Context.Add(m);
+                _Context.SaveChanges();
                 return JsonConvert.SerializeObject("message send succesfully");
+            }
+            else
+            {
+                return JsonConvert.SerializeObject("try again");
+            }
+           
           
 
-
-            ////  }
-            //    catch (Exception ex)
-            //  {
-            //     return JsonConvert.SerializeObject(ex.Message);
-            // }
+            
 
 
         }
 
+        /// <summary>
+        /// messages seen my admin
+        /// </summary>
+        /// <returns></returns>
+        public  IActionResult SeeMessages()
+        {
+            var Messinfo = JsonConvert.DeserializeObject<Mess>(HttpContext.Session.GetString("sessionUser1234"));
+
+
+            int id = Messinfo.MessId;
+          var messsage=   _Context.Messages.Include(m=>m.Guardian).Where(c => c.messids == id).ToList();
+            ViewBag.count = messsage.Count;
+            if (messsage.ToList().Count == 0)
+            {
+                return View("Empty");
+            }
+            return View(messsage);
+        }
+
+        public IActionResult seeguardianmessage(int id)
+        {
+            var Messinfo = JsonConvert.DeserializeObject<Mess>(HttpContext.Session.GetString("sessionUser1234"));
+            var messsage = _Context.Messages.Include(m => m.Guardian).Where(c => c.GuardianId==id).ToList();
+
+            int messid = Messinfo.MessId;
+            ViewBag.count = messsage.Count;
+            if (messsage.ToList().Count == 0)
+            {
+                return View("Empty");
+            }
+            return View(messsage);
+        }
 
         public async Task<IActionResult> LogIn()
         {
@@ -201,5 +247,93 @@ namespace SmarkHealthKidoPack.Controllers
             return View(list);
         }
 
+
+        public async Task<IActionResult> addcradits(int? id)
+        {
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+            //photopath
+            var guardain = await _Context.guardians.FindAsync(id);
+
+          //  TempData["pic"] = food.photopath;
+            if (guardain == null)
+            {
+                return NotFound();
+            }
+            //IFormFile
+
+            GuardianBalanaceViewModel g = new GuardianBalanaceViewModel
+            {
+                GuardianId = guardain.GuardianId,
+                Guardianname = guardain.GuardianName,
+                phonenumber = guardain.phonenumber,
+                adress = guardain.adress,
+                 OldBalance = guardain.Balance,
+                messId= guardain.messId,
+                passward= guardain.passward,
+                newBalance=0
+
+
+            };
+            //var userinfo = JsonConvert.DeserializeObject<Mess>(HttpContext.Session.GetString("sessionUser1234"));
+            //int idf = userinfo.MessId;
+            //ViewBag.foodCategoryId = new SelectList(_Context.foodCategories.Where(m => m.MessId == idf), "FoodCategoryId", "FoodCategoryName");
+            return View(g);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> addcradits(int id, GuardianBalanaceViewModel guardian)
+        {
+          //  var Messinfo = JsonConvert.DeserializeObject<Mess>(HttpContext.Session.GetString("sessionUser1234"));
+
+
+           // int messid = Messinfo.MessId;
+            if (id != guardian.GuardianId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+              
+                   int balance = 0;
+
+
+                 
+                   balance = guardian.OldBalance + guardian.newBalance;
+                  
+
+
+                    Guardian g = new Guardian
+                    {
+                        GuardianId = guardian.GuardianId,
+                        GuardianName = guardian.Guardianname,
+                        phonenumber = guardian.phonenumber,
+                        adress = guardian.adress,
+                        Balance = balance,
+                        messId = guardian.messId,
+                        passward= guardian.passward
+
+
+                    };
+
+
+
+
+
+
+
+                    _Context.Update(g);
+                    await _Context.SaveChangesAsync();
+                
+         
+                return RedirectToAction(nameof(ListOfUsers));
+            }
+            return View(guardian);
+        }
     }
 }

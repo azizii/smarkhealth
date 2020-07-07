@@ -17,13 +17,17 @@ namespace SmarkHealthKidoPack.Models
 
         public string passward { get; set; }
 
+        public int Balance { get; set; }
+
         public int messId { get; set; }
 
         public Mess Mess { get; set; }
 
         public ICollection<Child> child { get; set; }
 
-   
+        public ICollection<Messages>  Messages { get; set; }
+
+
 
     }
 }

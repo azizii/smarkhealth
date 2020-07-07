@@ -215,7 +215,9 @@ namespace SmarkHealthKidoPack.Controllers
                     foodCalories = food.foodCalories,
                     photopath = uniqueFileName,
                     foodCategoryId = food.foodCategoryId,
-                    Price = food.price
+                    Price = food.price,
+                   
+                   
 
 
                 };

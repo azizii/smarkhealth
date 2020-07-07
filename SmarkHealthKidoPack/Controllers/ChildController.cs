@@ -64,8 +64,13 @@ namespace SmarkHealthKidoPack.Controllers
         }
 
      
-        public IActionResult Index()
+        public IActionResult Index(string message)
         {
+            if (message != null)
+            {
+                ViewBag.messages = message;
+            }
+
             int childid = Convert.ToInt32(TempData["id"].ToString());
             List<childfoodviewmodel> cvm= _Context.childfoodviewmodels.Where(c1 => c1.childid == childid).ToList();
         int    cid = Convert.ToInt32(TempData["id"].ToString());
@@ -85,7 +90,7 @@ namespace SmarkHealthKidoPack.Controllers
                  //   foodlist = _Context.food.Find(cvm[i].foodid)
              
             }
-            if (TempData["status12"] !=null)
+            if (TempData["status123"] !=null)
             {
                  var cart = SessionHelper.GetObjectFromJson<List<ProductViewModel>>(HttpContext.Session, "cart");
                 ViewBag.cart = cart;
@@ -109,7 +114,7 @@ namespace SmarkHealthKidoPack.Controllers
                 if (cart.Count > 0)
                 {
 
-                    TempData["status12"] = 1;
+                    TempData["status123"] = 1;
 
                 }
 
@@ -136,7 +141,7 @@ namespace SmarkHealthKidoPack.Controllers
                 if (cart.Count > 0)
                 {
 
-                    TempData["status12"] = 1;
+                    TempData["status123"] = 1;
 
                    
                 }
@@ -193,11 +198,11 @@ namespace SmarkHealthKidoPack.Controllers
             //    _Context.childfoodviewmodels.Add(employee);
             //}
 
-
+            TempData["status123"] = 1;
 
             //_Context.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index",new { Message = "Thank you hunza" });
         }
         private int isExist(int id)
         {
