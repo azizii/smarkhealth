@@ -51,7 +51,8 @@ namespace SmarkHealthKidoPack.Controllers
                     if (c.Guardian.messId == id) {
                         // Child childS = _Context.children.Find(c.ChildId);
                         TempData["childid"] = c.ChildId;
-                        return RedirectToAction(nameof(Index));
+                        TempData["guardiansalary"] = c.Guardian.Balance;
+                        return RedirectToAction(nameof(Lndex));
                     }
                     else{
                         ViewBag.message = "user is not register yet";
@@ -64,15 +65,23 @@ namespace SmarkHealthKidoPack.Controllers
         }
 
      
-        public IActionResult Index(string message)
+        public IActionResult Lndex(string message)
         {
+           
             if (message != null)
             {
+
+                List<ProductViewModel> cart = SessionHelper.GetObjectFromJson<List<ProductViewModel>>(HttpContext.Session, "cart");
+               
+                cart.Clear();
                 ViewBag.messages = message;
             }
 
             int childid = Convert.ToInt32(TempData["id"].ToString());
-            List<childfoodviewmodel> cvm= _Context.childfoodviewmodels.Where(c1 => c1.childid == childid).ToList();
+            DateTime da = DateTime.Now;
+          //  && c1.dateselected == d
+            string d = da.ToShortDateString();
+            List<childfoodviewmodel> cvm= _Context.childfoodviewmodels.Where(c1 => c1.childid == childid ).ToList();
         int    cid = Convert.ToInt32(TempData["id"].ToString());
             Child childname = _Context.children.FirstOrDefault(m => m.ChildId == cid);
         //    var c = new List<selectedfoodviewmodel>();
@@ -90,14 +99,19 @@ namespace SmarkHealthKidoPack.Controllers
                  //   foodlist = _Context.food.Find(cvm[i].foodid)
              
             }
-            if (TempData["status123"] !=null)
+            if (TempData["status12345"] !=null)
             {
-                 var cart = SessionHelper.GetObjectFromJson<List<ProductViewModel>>(HttpContext.Session, "cart");
+                var cart = SessionHelper.GetObjectFromJson<List<ProductViewModel>>(HttpContext.Session, "cart");
+       
+
                 ViewBag.cart = cart;
                 ViewBag.total = cart.Sum(item => item.food.Price * item.quantity);
             }
+            int balance=Convert.ToInt32(TempData["guardiansalary"].ToString());
+            ViewBag.balance = balance;
             TempData["id"] = childname.ChildId;
-            //cvm[0].foodi
+            TempData["guardiansalary"] = balance;
+      
             return View(vm);
         }
 
@@ -114,7 +128,7 @@ namespace SmarkHealthKidoPack.Controllers
                 if (cart.Count > 0)
                 {
 
-                    TempData["status123"] = 1;
+                    TempData["status12345"] = 1;
 
                 }
 
@@ -141,7 +155,7 @@ namespace SmarkHealthKidoPack.Controllers
                 if (cart.Count > 0)
                 {
 
-                    TempData["status123"] = 1;
+                    TempData["status12345"] = 1;
 
                    
                 }
@@ -154,7 +168,7 @@ namespace SmarkHealthKidoPack.Controllers
             TempData["id"] = childid;
            // Child userinfo = JsonConvert.DeserializeObject<Child>(HttpContext.Session.GetString("Childs"));
            // int qid = childid;
-            return RedirectToAction("Index");
+            return RedirectToAction("Lndex");
         }
 
 
@@ -198,11 +212,11 @@ namespace SmarkHealthKidoPack.Controllers
             //    _Context.childfoodviewmodels.Add(employee);
             //}
 
-            TempData["status123"] = 1;
+         //   TempData["status1234"] = 1;
 
             //_Context.SaveChanges();
-
-            return RedirectToAction("Index",new { Message = "Thank you hunza" });
+         //   
+            return RedirectToAction("Lndex", new { Message = "Thank you" });
         }
         private int isExist(int id)
         {
@@ -220,19 +234,21 @@ namespace SmarkHealthKidoPack.Controllers
         {
             List<ProductViewModel> cart = SessionHelper.GetObjectFromJson<List<ProductViewModel>>(HttpContext.Session, "cart");
             int index = isExist(id);
-            cart.RemoveAt(index);
+            if (index !=-1)
+            {
+                cart.RemoveAt(index);
+            }
+            int total = cart.Count;
+            if (total!=0)
+            {
+                TempData["status12345"] = 1;
+            }
+           
             SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
-            return RedirectToAction("Index");
+            return RedirectToAction("Lndex");
         }
 
-        //public IActionResult showcart()
-        //{
-
-        //    var cart = SessionHelper.GetObjectFromJson<List<ProductViewModel>>(HttpContext.Session, "cart");
-        //    ViewBag.cart = cart;
-        //    ViewBag.total = cart.Sum(item => item.food.Price * item.quantity);
-        //    return View();
-        //}
+       
     }
 
 

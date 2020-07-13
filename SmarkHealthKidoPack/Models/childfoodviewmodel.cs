@@ -10,5 +10,8 @@ namespace SmarkHealthKidoPack.Models
         public int childfoodviewmodelid { get; set; }
         public int childid { get; set; }
         public int foodid { get; set; }
+        public string dateselected { get; set; }
+
+       
     }
 }

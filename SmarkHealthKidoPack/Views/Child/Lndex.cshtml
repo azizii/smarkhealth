@@ -1,0 +1,156 @@
+﻿@model IEnumerable<SmarkHealthKidoPack.ViewModel.selectedfoodviewmodel>
+@{
+    Layout = "~/Views/Shared/AdminLayOut.cshtml";
+}
+
+
+
+<div class="container">
+    @if (ViewBag.messages != null)
+    {
+
+        <h2>@ViewBag.messages</h2>
+        <a asp-controller="Messes" asp-action="Index">back to list</a>
+        @*<div class="modal-body">
+                <p>
+                    <table cellpadding="2" cellspacing="2" border="1">
+                        <tr>
+                            <th>Option</th>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Photo</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Sub Total</th>
+                        </tr>
+                        @foreach (var item in ViewBag.cart)
+                        {
+                            <tr>
+                                <td><a asp-action="Remove" asp-route-id="@item.food.FoodId">Remove</a></td>
+                                <td>@item.food.FoodId</td>
+                                <td>@item.food.FoodName</td>
+
+                                <td> <img src="~/images/1665e8d3-3458-4d81-982f-230b2623b437_water_melon.jpg" style="border-radius:.60rem;" width="193" height="130" /> </td>
+                                <td>@item.food.Price</td>
+                                <td>@item.quantity</td>
+                                <td>@(item.food.Price * item.quantity)</td>
+                            </tr>
+                        }
+                        <tr>
+                            <td align="right" colspan="6">Sum</td>
+                            <td>
+                                @ViewBag.total
+                            </td>
+                        </tr>
+                    </table>
+                    </p>
+             </div>
+            <a asp-controller="Food" asp-action="FoodList">back to list</a>*@
+    }
+    else
+    {
+
+
+
+        <h1>please  select your food Hunza</h1>
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="card card-login mx-auto mt-5">
+
+            @if (ViewBag.cart != null)
+            {
+
+
+                <div class="modal-body">
+                    <p>
+                        <table cellpadding="2" cellspacing="2" border="1">
+                            <tr>
+                                <th>Option</th>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Photo</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Sub Total</th>
+                            </tr>
+                            @foreach (var item in ViewBag.cart)
+                            {
+                                <tr>
+                                    <td><a asp-action="Remove" asp-route-id="@item.food.FoodId">Remove</a></td>
+                                    <td>@item.food.FoodId</td>
+                                    <td>@item.food.FoodName</td>
+
+                                    <td> <img src="~/images/1665e8d3-3458-4d81-982f-230b2623b437_water_melon.jpg" style="border-radius:.60rem;" width="193" height="130" /> </td>
+                                    <td>@item.food.Price</td>
+                                    <td>@item.quantity</td>
+                                    <td>@(item.food.Price * item.quantity)</td>
+                                </tr>
+                            }
+                            <tr>
+                                <td align="right" colspan="6">Sum</td>
+                                <td>
+                                    @ViewBag.total
+                                </td>
+                            </tr>
+                        </table>
+                    </p>
+                </div>
+
+
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"> <a asp-action="Save"> Save</a></button>
+                @*<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <a asp-action="Save">add</a>*@
+
+
+
+
+
+
+
+
+            }
+            <p>Current balance iss @ViewBag.balance</p>
+            <div class="card-body">
+
+
+                @foreach (var item in Model)
+                {
+
+                    var photoPath = "~/Images/" + (item.foodlist.photopath ?? "noimage.jpg");
+
+                    <div class="card rounded-circle" style="width: 20rem; height:27rem; text-align:center;display:inline-block;">
+
+
+                        <div class="card-block text-center ">
+                            <h3 class="card-title bg-warning">@item.foodlist.FoodName</h3>
+                            <img class="card-img-top " title="Click to View Product detail"
+                                 style="cursor:pointer;height:200px;width:100%"
+                                 src="@photoPath" asp-append-version="true" style="border-radius:.60rem;" />
+                            <h2 class="card-title">@item.foodlist.FoodName</h2>
+                            <p class="card-text">Price: Rs: @item.foodlist.Price</p>
+                            <a asp-action="AddToCart" asp-route-id="@item.foodlist.FoodId">add</a>
+                            @*<a class="ti-pencil-alt" asp-action="EditView" asp-route-id="@item.FoodId"></a> |
+                                <a class="ti-layout-grid4" asp-action="Details" asp-route-id="@item.FoodId"></a> |
+                                <a class="ti-close" asp-action="Delete" asp-route-id="@item.FoodId"></a>*@
+                        </div>
+
+                    </div>
+                }
+
+
+
+            </div>
+        </div>
+    }
+</div>
+

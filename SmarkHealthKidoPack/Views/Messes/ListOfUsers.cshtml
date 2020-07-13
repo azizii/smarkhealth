@@ -5,255 +5,255 @@
     Layout = "~/Views/Shared/AdminLayOut.cshtml";
 }
 
-
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <style>
-       .panel-heading {
-           padding: 10px 15px;
-           background-color: #353535;
-           border-top: 1px solid #ddd;
-           border-bottom-right-radius: 3px;
-           border-bottom-left-radius: 3px;
-           position: absolute;
-           top: 0%;
-           cursor: pointer;
-           opacity: 0.8;
-           color: white;
-           border: none;
-       }
+    .panel-heading {
+        padding: 10px 15px;
+        background-color: #353535;
+        border-top: 1px solid #ddd;
+        border-bottom-right-radius: 3px;
+        border-bottom-left-radius: 3px;
+        position: absolute;
+        top: 0%;
+        cursor: pointer;
+        opacity: 0.8;
+        color: white;
+        border: none;
+    }
 
-       .panel-body {
-           padding: 60px 4% 5% 7%;
-       }
+    .panel-body {
+        padding: 60px 4% 5% 7%;
+    }
 
-       .box {
-           padding: 2%;
-           border: 1px #ddd solid;
-           cursor: pointer;
-       }
+    .box {
+        padding: 2%;
+        border: 1px #ddd solid;
+        cursor: pointer;
+    }
 
 
-       .remove-decoration {
-           text-decoration: none !important;
-           color: #333;
-           font-size: 12px;
-       }
+    .remove-decoration {
+        text-decoration: none !important;
+        color: #333;
+        font-size: 12px;
+    }
 
-       /*=========================
+    /*=========================
      Icons
     ================= */
 
-       /* footer social icons */
-       ul.social-network {
-           list-style: none;
-           display: inline;
-           margin-left: 0 !important;
-           padding: 0;
-       }
+    /* footer social icons */
+    ul.social-network {
+        list-style: none;
+        display: inline;
+        margin-left: 0 !important;
+        padding: 0;
+    }
 
-           ul.social-network li {
-               display: inline;
-               margin: 0 5px;
-           }
+        ul.social-network li {
+            display: inline;
+            margin: 0 5px;
+        }
 
 
-       /* footer social icons */
-       #IdFooter .social-network a.icoRss:hover {
-           background-color: #F56505;
-       }
+    /* footer social icons */
+    #IdFooter .social-network a.icoRss:hover {
+        background-color: #F56505;
+    }
 
-       #IdFooter .social-network a.icoFacebook:hover {
-           background-color: #3B5998;
-       }
+    #IdFooter .social-network a.icoFacebook:hover {
+        background-color: #3B5998;
+    }
 
-       #IdFooter .social-network a.icoTwitter:hover {
-           background-color: #33ccff;
-       }
+    #IdFooter .social-network a.icoTwitter:hover {
+        background-color: #33ccff;
+    }
 
-       #IdFooter .social-network a.icoGoogle:hover {
-           background-color: #BD3518;
-       }
+    #IdFooter .social-network a.icoGoogle:hover {
+        background-color: #BD3518;
+    }
 
-       #IdFooter .social-network a.icoVimeo:hover {
-           background-color: #0590B8;
-       }
+    #IdFooter .social-network a.icoVimeo:hover {
+        background-color: #0590B8;
+    }
 
-       #IdFooter .social-network a.icoLinkedin:hover {
-           background-color: #007bb7;
-       }
+    #IdFooter .social-network a.icoLinkedin:hover {
+        background-color: #007bb7;
+    }
 
-       #IdFooter .social-network a.icoRss:hover i, .social-network a.icoFacebook:hover i, .social-network a.icoTwitter:hover i,
-       #IdFooter .social-network a.icoGoogle:hover i, .social-network a.icoVimeo:hover i, .social-network a.icoLinkedin:hover i {
-           color: #fff;
-       }
+    #IdFooter .social-network a.icoRss:hover i, .social-network a.icoFacebook:hover i, .social-network a.icoTwitter:hover i,
+    #IdFooter .social-network a.icoGoogle:hover i, .social-network a.icoVimeo:hover i, .social-network a.icoLinkedin:hover i {
+        color: #fff;
+    }
 
-       #IdFooter a.socialIcon:hover, .socialHoverClass {
-           color: #44BCDD;
-       }
+    #IdFooter a.socialIcon:hover, .socialHoverClass {
+        color: #44BCDD;
+    }
 
-       #IdFooter .social-circle li a {
-           display: inline-block;
-           position: relative;
-           margin: 0 auto 0 auto;
-           -moz-border-radius: 50%;
-           -webkit-border-radius: 50%;
-           border-radius: 50%;
-           text-align: center;
-           width: 35px;
-           height: 35px;
-           font-size: 18px;
-       }
+    #IdFooter .social-circle li a {
+        display: inline-block;
+        position: relative;
+        margin: 0 auto 0 auto;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+        border-radius: 50%;
+        text-align: center;
+        width: 35px;
+        height: 35px;
+        font-size: 18px;
+    }
 
-       #IdFooter .social-circle li i {
-           margin: 0;
-           line-height: 38px;
-           text-align: center;
-       }
+    #IdFooter .social-circle li i {
+        margin: 0;
+        line-height: 38px;
+        text-align: center;
+    }
 
-       #IdFooter .social-circle li a:hover i, .triggeredHover {
-           -moz-transform: rotate(360deg);
-           -webkit-transform: rotate(360deg);
-           -ms--transform: rotate(360deg);
-           transform: rotate(360deg);
-           -webkit-transition: all 0.2s;
-           -moz-transition: all 0.2s;
-           -o-transition: all 0.2s;
-           -ms-transition: all 0.2s;
-           transition: all 0.2s;
-       }
+    #IdFooter .social-circle li a:hover i, .triggeredHover {
+        -moz-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -ms--transform: rotate(360deg);
+        transform: rotate(360deg);
+        -webkit-transition: all 0.2s;
+        -moz-transition: all 0.2s;
+        -o-transition: all 0.2s;
+        -ms-transition: all 0.2s;
+        transition: all 0.2s;
+    }
 
-       #IdFooter .social-circle i {
-           color: #fff;
-           -webkit-transition: all 0.8s;
-           -moz-transition: all 0.8s;
-           -o-transition: all 0.8s;
-           -ms-transition: all 0.8s;
-           transition: all 0.8s;
-       }
+    #IdFooter .social-circle i {
+        color: #fff;
+        -webkit-transition: all 0.8s;
+        -moz-transition: all 0.8s;
+        -o-transition: all 0.8s;
+        -ms-transition: all 0.8s;
+        transition: all 0.8s;
+    }
 
-       #IdFooter a {
-           background-color: #D3D3D3;
-       }
+    #IdFooter a {
+        background-color: #D3D3D3;
+    }
 </style>
 
 
 <div class="container-fluid">
- 
-        <div class="row">
 
-            <div class="col-md-12">
-                @foreach (var item in Model)
-                {
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4">
-                        <div class="panel panel-default">
+    <div class="row">
 
-                            <div class="panel-heading"><img src="" /> Pakistan</div>
-                            <div class="panel-body text-left">
-                                <div class="row">
-                                    <div class="col-md-12 ">
-                                        <center>
-                                            <a class="" href="#"> <img class="media-object dp img-circle" src="~/images/noimage.jpg" /></a>
+        <div class="col-md-12">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+
+                        <div class="panel-heading"><img src="" /> Pakistan</div>
+                        <div class="panel-body text-left">
+                            <div class="row">
+                                <div class="col-md-12 ">
+                                    <center>
+                                        <a class="" href="#"> <img class="media-object dp img-circle" src="~/images/noimage.jpg" /></a>
 
 
-                                        </center>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <h2> @Html.DisplayFor(modelItem => item.GuardianName)</h2>
-                                        <p>Current  Balance: @Html.DisplayFor(modelItem => item.Balance)</p>
-                                        <p>
-                                            <b>
-                                                Childs
-                                            </b>
-                                            @foreach (var child in item.child)
-                                            {
+                                    </center>
+                                </div>
+                                <div class="col-md-12">
+                                    <h2> @Html.DisplayFor(modelItem => item.GuardianName)</h2>
+                                    <p>Current  Balance: @Html.DisplayFor(modelItem => item.Balance)</p>
+                                    <p>
+                                        <b>
+                                            Childs
+                                        </b>
+                                        @foreach (var child in item.child)
+                                        {
 
-                                                @Html.DisplayFor(modelItem => child.ChildName)
-                                                @*@Html.DisplayFor(modelItem => child.password)*@
+                                            @Html.DisplayFor(modelItem => child.ChildName)
+                                            @*@Html.DisplayFor(modelItem => child.password)*@
 
-                                            }
-                                        </p>
-                                        <p>
-                                            <a href="#" class="remove-decoration"><i class="glyphicon glyphicon-envelope"></i> @Html.DisplayFor(modelItem => item.adress)</a> <br>
-                                            @*<a href="http://sachitha-seram.branded.me/" target="_blank" class="remove-decoration"><i class="glyphicon glyphicon-globe"></i> www.sachitha-seram.branded.me </a><br>*@
-                                            <a href="#" class="remove-decoration"> <i class="glyphicon glyphicon-phone"></i> @Html.DisplayFor(modelItem => item.phonenumber)</a>
-                                        </p>
-                                    </div>
+                                        }
+                                    </p>
+                                    <p>
+                                        <a href="#" class="remove-decoration"><i class="glyphicon glyphicon-envelope"></i> @Html.DisplayFor(modelItem => item.adress)</a> <br>
+                                        @*<a href="http://sachitha-seram.branded.me/" target="_blank" class="remove-decoration"><i class="glyphicon glyphicon-globe"></i> www.sachitha-seram.branded.me </a><br>*@
+                                        <a href="#" class="remove-decoration"> <i class="glyphicon glyphicon-phone"></i> @Html.DisplayFor(modelItem => item.phonenumber)</a>
+                                    </p>
                                 </div>
                             </div>
-                            <div id="IdFooter" class="panel-footer">
-                                <ul class="social-network ">
-                                    <li><b> <a asp-action="addcradits" asp-route-id="@item.GuardianId">Add cradit</a></b></li>
-                                    <li><b> <a asp-action="seeguardianmessage" asp-route-id="@item.GuardianId">see Messages</a><b></li>
+                        </div>
+                        <div id="IdFooter" class="panel-footer">
+                            <ul class="social-network ">
+                                <li><b> <a asp-action="addcradits" asp-route-id="@item.GuardianId">Add cradit</a></b></li>
+                                <li><b> <a asp-action="seeguardianmessage" asp-route-id="@item.GuardianId">see Messages</a></b></li>
 
-                                </ul>
-                            </div>
+                            </ul>
                         </div>
                     </div>
-                    <div class="col-md-4"></div>
-                }
-            </div>
-
+                </div>
+                <div class="col-md-4"></div>
+            }
         </div>
-       
+
     </div>
 
+</div>
 
 
 
 
-    @*<h1>ListOfUsers</h1>
 
-        <p>
-            <a asp-action="Create">Create New</a>
-        </p>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.GuardianName)
-                    </th>
-                    <th>
+@*<h1>ListOfUsers</h1>
 
-                        Child name
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Balance)
-                    </th>
-                    <th>
-                      Add  @Html.DisplayNameFor(model => model.Balance)
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.GuardianName)
+                </th>
+                <th>
+
+                    Child name
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Balance)
+                </th>
+                <th>
+                  Add  @Html.DisplayNameFor(model => model.Balance)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.GuardianName)
+                </td>
+
+                @foreach (var child in item.child)
                 {
-                <tr>
-
-
                     <td>
-                        @Html.DisplayFor(modelItem => item.GuardianName)
+                        @Html.DisplayFor(modelItem => child.ChildName)
+                        @Html.DisplayFor(modelItem => child.password)
                     </td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.Balance)
+                </td>
+                <td>
+                    <a asp-action="addcradits" asp-route-id="@item.GuardianId">Add cradit</a>
+                </td>
+                <td>
+                    <a asp-action="seeguardianmessage" asp-route-id="@item.GuardianId">see Messages</a>
+                </td>
 
-                    @foreach (var child in item.child)
-                    {
-                        <td>
-                            @Html.DisplayFor(modelItem => child.ChildName)
-                            @Html.DisplayFor(modelItem => child.password)
-                        </td>
-                    }
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Balance)
-                    </td>
-                    <td>
-                        <a asp-action="addcradits" asp-route-id="@item.GuardianId">Add cradit</a>
-                    </td>
-                    <td>
-                        <a asp-action="seeguardianmessage" asp-route-id="@item.GuardianId">see Messages</a>
-                    </td>
+            </tr>
 
-                </tr>
-
-            }
-                </tbody>
-            </table>*@
+        }
+            </tbody>
+        </table>*@

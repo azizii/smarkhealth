@@ -688,12 +688,15 @@ namespace SmarkHealthKidoPack.Controllers
 
             if (foods.Count != 0)
             {
+                DateTime da = DateTime.Now;
+                string d = da.ToShortDateString();
               //  var c = new List<childfoodviewmodel>();
                 for (int i = 0; i < foods.Count; i++)
                 {
                     childfoodviewmodel c = new childfoodviewmodel {
                         foodid = foods[i].FoodId,
-                       childid= childid
+                       childid= childid,
+                       dateselected= d
                     };
 
                     _context.Add(c);

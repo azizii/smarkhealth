@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmarkHealthKidoPack.Models;
 
 namespace SmarkHealthKidoPack.Migrations
 {
     [DbContext(typeof(MainContext))]
-    partial class MainContextModelSnapshot : ModelSnapshot
+    [Migration("20200707200931_initialmdate")]
+    partial class initialmdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -188,7 +190,7 @@ namespace SmarkHealthKidoPack.Migrations
 
                     b.Property<int>("childid");
 
-                    b.Property<string>("dateselected");
+                    b.Property<DateTime>("dateselected");
 
                     b.Property<int>("foodid");
 

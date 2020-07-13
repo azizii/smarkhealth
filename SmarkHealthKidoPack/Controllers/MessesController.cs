@@ -93,7 +93,7 @@ namespace SmarkHealthKidoPack.Controllers
             }
             else
             {
-                return JsonConvert.SerializeObject("try again");
+                return JsonConvert.SerializeObject("message send succesfully");
             }
            
           
@@ -175,16 +175,16 @@ namespace SmarkHealthKidoPack.Controllers
         {
 
             var Messinfo = JsonConvert.DeserializeObject<Mess>(HttpContext.Session.GetString("sessionUser1234"));
-
+            
 
             int id = Messinfo.MessId;
             var add = _Context.food.Include(c => c.foodCategory).Where(c=>c.foodCategory.MessId==id).ToList();
             var welcomeVM = new WelcomeViewModel
             
             {
-                CustomersCount = 0,
+                CustomersCount = _Context.guardians.Where(m => m.messId == id).Count(x => true),
                 FoodCount = _Context.food.Include(c => c.foodCategory).Where(c => c.foodCategory.MessId == id).Count(x =>true),
-            adminCount = 0,
+            adminCount = 1,
                 categoryCount = _Context.foodCategories.Where(m =>m.MessId==id).Count(x => true),
                 food = add
             };
