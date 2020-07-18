@@ -230,8 +230,8 @@ namespace SmarkHealthKidoPack.Controllers
 
                         if (cbRegTmp <= 0)
                         {
-                            string query = "INSERT INTO Registers(fingerprints)Values('" + base64String + "') ";
-                            SqlConnection con = new SqlConnection(@"Server=DESKTOP-RVDTF47\\AZIZ;Database=SmartHealth;Trusted_Connection=True;MultipleActiveResultSets=true");
+                            string query = "INSERT INTO Registers(fingerprints)Values('" + db_value + "') ";
+                            SqlConnection con = new SqlConnection(@"Server=(localdb)\MSSQLLocalDB;Database=SmartHealth;Trusted_Connection=True;MultipleActiveResultSets=true");
                             SqlCommand cmd = new SqlCommand(query, con);
                             //cmd.CommandType = CommandType.StoredProcedure;
                             // cmd.Parameters.AddWithValue("@finerprints",db_value);

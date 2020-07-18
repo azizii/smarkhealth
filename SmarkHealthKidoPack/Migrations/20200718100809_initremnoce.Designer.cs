@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmarkHealthKidoPack.Models;
 
 namespace SmarkHealthKidoPack.Migrations
 {
     [DbContext(typeof(MainContext))]
-    partial class MainContextModelSnapshot : ModelSnapshot
+    [Migration("20200718100809_initremnoce")]
+    partial class initremnoce
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -179,6 +181,19 @@ namespace SmarkHealthKidoPack.Migrations
                     b.HasKey("RegisterId");
 
                     b.ToTable("Registers");
+                });
+
+            modelBuilder.Entity("SmarkHealthKidoPack.Models.Register1", b =>
+                {
+                    b.Property<int>("Register1Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<byte[]>("fingerprints");
+
+                    b.HasKey("Register1Id");
+
+                    b.ToTable("Registers1");
                 });
 
             modelBuilder.Entity("SmarkHealthKidoPack.Models.SelectedChildfoods", b =>

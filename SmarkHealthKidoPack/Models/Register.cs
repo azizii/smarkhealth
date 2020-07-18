@@ -10,7 +10,7 @@ namespace SmarkHealthKidoPack.Models
     public class Register
     {
         public int RegisterId { get; set; }
-
+        [Column(TypeName = "varchar(MAX)")]
         public string fingerprints { get; set; }
      
     }

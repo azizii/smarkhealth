@@ -50,8 +50,10 @@ namespace SmarkHealthKidoPack.Controllers
                     int id = Messinfo.MessId;
                     if (c.Guardian.messId == id) {
                         // Child childS = _Context.children.Find(c.ChildId);
+                      //  HttpContext.Session.Clear();
                         TempData["childid"] = c.ChildId;
                         TempData["guardiansalary"] = c.Guardian.Balance;
+                       // HttpContext.Session.SetString("childsession", Newtonsoft.Json.JsonConvert.SerializeObject(c));
                         return RedirectToAction(nameof(Lndex));
                     }
                     else{
@@ -73,7 +75,7 @@ namespace SmarkHealthKidoPack.Controllers
 
                 List<ProductViewModel> cart = SessionHelper.GetObjectFromJson<List<ProductViewModel>>(HttpContext.Session, "cart");
                
-                cart.Clear();
+               // cart.Clear();
                 ViewBag.messages = message;
             }
 
@@ -183,6 +185,40 @@ namespace SmarkHealthKidoPack.Controllers
 
         public IActionResult Save()
         {
+
+         //   Child child = JsonConvert.DeserializeObject<Child>(HttpContext.Session.GetString("childsession"));
+            // qid = child.ChildId;
+
+            int kidId = Convert.ToInt32(TempData["id"].ToString());
+            //  int childid = Convert.ToInt32(TempData["ChildId"].ToString());
+            DateTime da = DateTime.Now;
+            //  && c1.dateselected == d
+            string d = da.ToShortDateString();
+            List<ProductViewModel> cart = SessionHelper.GetObjectFromJson<List<ProductViewModel>>(HttpContext.Session, "cart");
+            var c = new List<SelectedChildfoods>();
+            for (int i = 0; i < cart.Count; i++)
+            {
+                c.Add(new SelectedChildfoods
+                {
+                      foodid = cart[i].food.FoodId,
+                    childid = kidId,
+                    dateselected= d,
+                    quantity=cart[i].quantity
+
+                });
+
+                //if (cart[i].food.FoodId.Equals())
+                //{
+                //    return i;
+                //}
+            }
+
+            foreach (SelectedChildfoods employee in c)
+            {
+                _Context.Add(employee);
+            }
+
+
             //Guardian userinfo = JsonConvert.DeserializeObject<Guardian>(HttpContext.Session.GetString("Guardian"));
 
             //Child userinfo1 = JsonConvert.DeserializeObject<Child>(HttpContext.Session.GetString("Child"));
@@ -212,11 +248,11 @@ namespace SmarkHealthKidoPack.Controllers
             //    _Context.childfoodviewmodels.Add(employee);
             //}
 
-         //   TempData["status1234"] = 1;
+            //   TempData["status1234"] = 1;
 
-            //_Context.SaveChanges();
-         //   
-            return RedirectToAction("Lndex", new { Message = "Thank you" });
+           _Context.SaveChanges();
+            //   
+            return RedirectToAction("Lndex", new { Message = "datasave" });
         }
         private int isExist(int id)
         {

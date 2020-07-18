@@ -20,6 +20,7 @@ namespace SmarkHealthKidoPack.Models
         public DbSet<Guardian> guardians { get; set; }
         
        public DbSet<Register> Registers { get; set; }
+       // public DbSet<Register1> Registers1 { get; set; }
         public DbSet<Mess> Messes { get; set; }
       //  public DbSet<aji> ajis { get; set; }
        // public DbSet<abdullah> abdullahs { get; set; }
@@ -27,6 +28,9 @@ namespace SmarkHealthKidoPack.Models
         public DbSet<ChildFood> childFoods { get; set; }
         public DbSet<childfoodviewmodel>  childfoodviewmodels { get; set; }
          public DbSet<Messages>   Messages{ get; set; }
+        public DbSet<SelectedChildfoods>  selectedChildfoodss { get; set; }
+
+      
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
