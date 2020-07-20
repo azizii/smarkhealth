@@ -167,8 +167,8 @@
                                         @foreach (var child in item.child)
                                         {
 
-                                            @Html.DisplayFor(modelItem => child.ChildName)
-                                            @*@Html.DisplayFor(modelItem => child.password)*@
+                                            @Html.DisplayFor(modelItem => child.ChildName)<b>|</b>
+                                          <a asp-controller="kids" asp-action="Register" asp-route-id="@child.ChildId "> Register  </a>
 
                                         }
                                     </p>

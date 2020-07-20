@@ -51,35 +51,36 @@ namespace SmarkHealthKidoPack.Controllers
         int cbCapTmp = 2048;
         int cbRegTmp = 0;
         int iFid = 1;
-       public string db_value;
+        public string db_value;
         private int mfpWidth = 0;
         private int mfpHeight = 0;
         Message message1 = new Message();
         const int MESSAGE_CAPTURED_OK = 0x0400 + 6;
-       // message1 = 0x002b0812;
+        // message1 = 0x002b0812;
         const int message2 = 1030;
         [DllImport("user32.dll", EntryPoint = "SendMessageA")]
         public static extern int SendMessage(IntPtr hwnd, int wMsg, IntPtr wParam, IntPtr lParam);
 
 
 
-       
 
 
-        public IActionResult Register()
+
+        public IActionResult Register(int? id)
         {
-            
+            Child child = _Context.children.Find(id);
+            TempData["id"] = child.ChildId;
+            device_close();
+            init_device();
+            device_open();
             return View();
         }
-
-
-      
 
         public IActionResult check(string Buttons)
         {
             if (Buttons == "initialize")
             {
-                
+
 
                 //Register register = new Register
                 //{
@@ -89,8 +90,8 @@ namespace SmarkHealthKidoPack.Controllers
                 //};
                 //_Context.Add(register);
                 //_Context.SaveChanges();
-                init_device();
-                device_open();
+                //init_device();
+                // device_open();
                 //adddata();
 
                 //image_cap(ref message1);
@@ -114,9 +115,8 @@ namespace SmarkHealthKidoPack.Controllers
         }
 
         public void init_device()
-
         {
-           // cmbIdx.Items.Clear();
+            // cmbIdx.Items.Clear();
             int ret = zkfperrdef.ZKFP_ERR_OK;
             if ((ret = zkfp2.Init()) == zkfperrdef.ZKFP_ERR_OK)
             {
@@ -125,7 +125,7 @@ namespace SmarkHealthKidoPack.Controllers
                 {
                     for (int i = 0; i < nCount; i++)
                     {
-                       // cmbIdx.Items.Add(i.ToString());
+                        // cmbIdx.Items.Add(i.ToString());
                     }
                     // cmbIdx.SelectedIndex = 0;
                     //bnInit.Enabled = false;
@@ -144,7 +144,7 @@ namespace SmarkHealthKidoPack.Controllers
             else
             {
                 Console.WriteLine("Initialize fail, ret=" + ret + " !");
-               // MessageBox.Show("Initialize fail, ret=" + ret + " !");
+                // MessageBox.Show("Initialize fail, ret=" + ret + " !");
             }
         }
 
@@ -154,6 +154,7 @@ namespace SmarkHealthKidoPack.Controllers
             {
                 cbCapTmp = 2048;
                 int ret = zkfp2.AcquireFingerprint(mDevHandle, FPBuffer, CapTmp, ref cbCapTmp);
+
                 if (ret == zkfp.ZKFP_ERR_OK)
                 {
                     SendMessage(FormHandle, MESSAGE_CAPTURED_OK, IntPtr.Zero, IntPtr.Zero);
@@ -162,26 +163,26 @@ namespace SmarkHealthKidoPack.Controllers
                     BitmapFormat.GetBitmap(FPBuffer, mfpWidth, mfpHeight, ref ms);
 
 
-
-
-
-
-
-
                     Bitmap bmp = new Bitmap(ms);
-                  bmp.Save("C:\\Users\\azizahmed\\Desktop\\New folder (3)\\test.bmp");
+                    bmp.Save("C:\\Users\\azizahmed\\Desktop\\New folder (3)\\test.bmp");
                     byte[] imageBytes = ms.ToArray();
+
+
+
                     //  Value = Convert.ToBase64String(imageBytes);
                     string base64String = Convert.ToBase64String(imageBytes, 0, imageBytes.Length);
                     db_value = Convert.ToBase64String(imageBytes);
-           
+
+                    string newBase64 = zkfp2.BlobToBase64(CapTmp, cbCapTmp);
+                    
+
 
 
 
                     // this.picFPImg.Image = bmp;
                     if (IsRegister)
                     {
-                         ret = zkfp.ZKFP_ERR_OK;
+                        ret = zkfp.ZKFP_ERR_OK;
                         int fid = 0, score = 0;
                         ret = zkfp2.DBIdentify(mDBHandle, CapTmp, ref fid, ref score);
                         if (zkfp.ZKFP_ERR_OK == ret)
@@ -230,7 +231,9 @@ namespace SmarkHealthKidoPack.Controllers
 
                         if (cbRegTmp <= 0)
                         {
-                            string query = "INSERT INTO Registers(fingerprints)Values('" + db_value + "') ";
+                            int kidId = Convert.ToInt32(TempData["id"].ToString());
+                            string query = String.Format("update  Children set fingerprint=" +
+                                "'{0}' Where  childId = {1}", newBase64, kidId);
                             SqlConnection con = new SqlConnection(@"Server=(localdb)\MSSQLLocalDB;Database=SmartHealth;Trusted_Connection=True;MultipleActiveResultSets=true");
                             SqlCommand cmd = new SqlCommand(query, con);
                             //cmd.CommandType = CommandType.StoredProcedure;
@@ -242,16 +245,17 @@ namespace SmarkHealthKidoPack.Controllers
                             con.Close();
 
                             IsRegister = true;
-                           // TempData["register"] = "Register";
+                            // TempData["register"] = "Register";
                             cbRegTmp = 0;
 
                             // add();
                             //      textRes.Text = "Please register your finger first!";
+                            ViewBag.lblSuccessMsg = "SUccess";
                             return;
                         }
                         if (bIdentify)
                         {
-                             ret = zkfp.ZKFP_ERR_OK;
+                            ret = zkfp.ZKFP_ERR_OK;
                             int fid = 0, score = 0;
                             ret = zkfp2.DBIdentify(mDBHandle, CapTmp, ref fid, ref score);
                             if (zkfp.ZKFP_ERR_OK == ret)
@@ -269,7 +273,7 @@ namespace SmarkHealthKidoPack.Controllers
                         }
                         else
                         {
-                             ret = zkfp2.DBMatch(mDBHandle, CapTmp, RegTmp);
+                            ret = zkfp2.DBMatch(mDBHandle, CapTmp, RegTmp);
                             if (0 < ret)
                             {
                                 Console.WriteLine("Match finger succ, score=" + ret + "!");
@@ -284,23 +288,23 @@ namespace SmarkHealthKidoPack.Controllers
                             }
                         }
                     }
-                
-                //end
 
-            }
+                    //end
+
+                }
                 Thread.Sleep(200);
             }
 
-         
+
         }
 
         public void add()
         {
 
-         
-                //Create a SQL Connection
-               
-            
+
+            //Create a SQL Connection
+
+
 
 
 
@@ -315,7 +319,7 @@ namespace SmarkHealthKidoPack.Controllers
             //_Context.Add(register2);
 
             //_Context.SaveChanges();
-            
+
         }
 
         public void device_open()
@@ -324,13 +328,13 @@ namespace SmarkHealthKidoPack.Controllers
             if (IntPtr.Zero == (mDevHandle = zkfp2.OpenDevice(0)))
             {
                 Console.WriteLine("open device fail");
-               // MessageBox.Show("OpenDevice fail");
+                // MessageBox.Show("OpenDevice fail");
                 return;
             }
             if (IntPtr.Zero == (mDBHandle = zkfp2.DBInit()))
             {
                 Console.WriteLine("init_device DB fail");
-               // MessageBox.Show("Init DB fail");
+                // MessageBox.Show("Init DB fail");
                 zkfp2.CloseDevice(mDevHandle);
                 mDevHandle = IntPtr.Zero;
                 return;
@@ -367,15 +371,6 @@ namespace SmarkHealthKidoPack.Controllers
             //textRes.Text = "Open succ";
             Console.WriteLine("Open success");
         }
-        public void device_close()
-        {
-            bIsTimeToDie = true;
-            RegisterCount = 0;
-            Thread.Sleep(1000);
-            fpInstance.CloseDevice();
-         //   zkfp2.CloseDevice(mDevHandle);
-            Console.WriteLine("Device closed ");
-        }
         public void enroll()
         {
             if (!IsRegister)
@@ -409,7 +404,7 @@ namespace SmarkHealthKidoPack.Controllers
         {
             zkfp2.Terminate();
             cbRegTmp = 0;
-            
+
         }
         public void adddata()
         {
@@ -426,9 +421,22 @@ namespace SmarkHealthKidoPack.Controllers
 
 
         }
-        
-     
-        
+        public void device_close()
+        {
+            try
+            {
+                bIsTimeToDie = true;
+                RegisterCount = 0;
+                Thread.Sleep(1000);
+                fpInstance.CloseDevice();
+                zkfp2.CloseDevice(mDevHandle);
+                Console.WriteLine("Device closed ");
+            }
+            catch (Exception e) { }
+        }
+
+
+
         public IActionResult Index()
         {
             return View(_Context.Registers.ToList());

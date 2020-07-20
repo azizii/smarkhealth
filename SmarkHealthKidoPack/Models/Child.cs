@@ -19,6 +19,8 @@ namespace SmarkHealthKidoPack.Models
 
         public string password { get; set; }
 
+        public string fingerprint { get; set; }
+
         public int guardianId { get; set; } 
 
         public Guardian Guardian { get; set; }
