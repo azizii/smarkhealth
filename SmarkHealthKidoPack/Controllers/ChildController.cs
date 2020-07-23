@@ -60,7 +60,7 @@ namespace SmarkHealthKidoPack.Controllers
 
         int messIdTemp = 0;
         string childIdTemp = "";
-
+       
         public ChildController(MainContext context)
         {
             _Context = context;
@@ -85,7 +85,85 @@ namespace SmarkHealthKidoPack.Controllers
         }
 
         [HttpPost]
-        public IActionResult LogIn(Child child)
+        public IActionResult LogIn(int child)
+        {
+            fingerdata d = null;
+            try
+            {
+                d = _Context.fingerdatas.First();
+            }
+            catch (Exception ex)
+            {
+
+            }
+           
+            if (child == null)
+            {
+                return NotFound();
+            }
+
+           
+                try
+                {
+                    Child c = _Context.children.Include(m => m.Guardian).FirstOrDefault(m => m.ChildId == d.finger);
+
+                    TempData["id"] = c.ChildId;
+                    // 
+                    if (c != null)
+                    {
+
+                        var Messinfo = JsonConvert.DeserializeObject<Mess>(HttpContext.Session.GetString("sessionUser1234"));
+
+
+                        int id = Messinfo.MessId;
+                        messIdTemp = id;
+                        if (c.Guardian.messId == id)
+                        {
+                            // Child childS = _Context.children.Find(c.ChildId);
+                            //  HttpContext.Session.Clear();
+                            TempData["childid"] = c.ChildId;
+                            TempData["guardiansalary"] = c.Guardian.Balance;
+                        _Context.Database.ExecuteSqlCommand("TRUNCATE TABLE [fingerdatas]");
+                        // HttpContext.Session.SetString("childsession", Newtonsoft.Json.JsonConvert.SerializeObject(c));
+                        return RedirectToAction(nameof(Lndex));
+                        }
+                        else
+                        {
+                            ViewBag.message = "user is not register yet";
+                            //ViewData["Test"] = true;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ViewData["Test"] = true;
+                }
+                ViewData["Test"] = true;
+
+            
+            return View();
+        }
+
+
+
+        public async Task<IActionResult> LogInmanual()
+        {
+
+            //var Messinfo = JsonConvert.DeserializeObject<Mess>(HttpContext.Session.GetString("sessionUser1234"));
+
+
+            //messIdTemp = Messinfo.MessId;
+
+
+            ViewData["Test"] = false;
+            //device_close();
+            //init_device();
+            //device_open();
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> LogInmanual(Child child)
         {
             if (child == null)
             {
@@ -96,7 +174,6 @@ namespace SmarkHealthKidoPack.Controllers
             {
 
                 Child c = _Context.children.Include(m => m.Guardian).FirstOrDefault(m => m.ChildName == child.ChildName && m.password == child.password);
-
                 TempData["id"] = c.ChildId;
                 // 
                 if (c != null)
@@ -128,9 +205,65 @@ namespace SmarkHealthKidoPack.Controllers
         }
 
 
+
+
+
+        [HttpPost]
+        public IActionResult LogIn1(Child child)
+        {
+            if (child == null)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    Child c = _Context.children.Include(m => m.Guardian).FirstOrDefault(m => m.ChildName == child.ChildName && m.password == child.password);
+
+                    TempData["id"] = c.ChildId;
+
+                    // 
+                    if (c != null)
+                    {
+
+                        var Messinfo = JsonConvert.DeserializeObject<Mess>(HttpContext.Session.GetString("sessionUser1234"));
+
+
+                        int id = Messinfo.MessId;
+                        messIdTemp = id;
+                        if (c.Guardian.messId == id)
+                        {
+                            // Child childS = _Context.children.Find(c.ChildId);
+                            //  HttpContext.Session.Clear();
+                            TempData["childid"] = c.ChildId;
+                            TempData["guardiansalary"] = c.Guardian.Balance;
+                            // HttpContext.Session.SetString("childsession", Newtonsoft.Json.JsonConvert.SerializeObject(c));
+                            return RedirectToAction(nameof(Lndex));
+                        }
+                        else
+                        {
+                            ViewBag.message = "user is not register yet";
+                            //ViewData["Test"] = true;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                }
+                ViewData["Test"] = true;
+            }
+            return View("LogIn");
+        }
+
+
+
+
         public IActionResult Lndex(string message)
         {
-
+            device_close();
             if (message != null)
             {
 
@@ -170,6 +303,7 @@ namespace SmarkHealthKidoPack.Controllers
                 ViewBag.cart = cart;
                 ViewBag.total = cart.Sum(item => item.food.Price * item.quantity);
             }
+            ViewBag.childname = childname.ChildName;
             int balance = Convert.ToInt32(TempData["guardiansalary"].ToString());
             ViewBag.balance = balance;
             TempData["id"] = childname.ChildId;
@@ -223,6 +357,7 @@ namespace SmarkHealthKidoPack.Controllers
 
                 }
                 SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
+         
             }
 
 
@@ -411,7 +546,7 @@ namespace SmarkHealthKidoPack.Controllers
 
                     zkfp t = new zkfp();
 
-
+                    
                     foreach (DataRow dr in dt.Rows)
                     {
                         string cFP = dr["FingerPrint"].ToString();
@@ -428,27 +563,41 @@ namespace SmarkHealthKidoPack.Controllers
                                 // match successfull
                                 //childIdTemp = cKId;
                                 //TempData["temp"] = cKId;
-                                //ViewBag.temp = cKId;
-                                //ViewData["temp"] = cKId;
-                                messIdTemp = messIdTemp;
+                                ViewBag.temp = cKId;
+                                int childids= Int16.Parse(cKId);
+                       
                                 device_close();
-                               
+                                try
+                                {
+
+                                    add(childids);
+                          
+                                }
+                                catch (Exception ex)
+                                {
+
+                                }
+                                //Response.Redirect("~/Child/indexsave");
+                                ///   RedirectToAction("indexsave").ExecuteResult(this.ControllerContext);
+                               // messIdTemp = messIdTemp;
+
+                                
                             }
 
                         }
-
+                       
                     }
-
+                   
                     con.Close();
 
-
+                 
 
 
                 }
                 Thread.Sleep(200);
             }
 
-
+          
         }
 
         public void device_open()
@@ -516,19 +665,56 @@ namespace SmarkHealthKidoPack.Controllers
             }
             catch (Exception e) { }
         }
-        public void add(string a)
+        public void add(int a)
       {
-            string b = a;
-           // TempData[""]
+
+            fingerdata c = new fingerdata {
+            finger=a};
+            try
+            {
+                string query = "INSERT INTO fingerdatas (finger) VALUES ('"+a+"')";
+                SqlConnection con = new SqlConnection(@"Server=(localdb)\MSSQLLocalDB;Database=SmartHealth;Trusted_Connection=True;MultipleActiveResultSets=true");
+                SqlCommand cmd = new SqlCommand(query, con);
+                //cmd.CommandType = CommandType.StoredProcedure;
+                // cmd.Parameters.AddWithValue("@finerprints",db_value);
+
+                con.Open();
+                int i = cmd.ExecuteNonQuery();
+
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            //try
+            //{
+
+
+            //    List<ChildEnrolmentViewModel> carts = new List<ChildEnrolmentViewModel>();
+
+
+            //    carts.Add(new ChildEnrolmentViewModel { childId = a, isverify = true });
+            //    SessionHelper.SetObjectAsJson(HttpContext.Session, "carts", carts);
+            //}
+            //catch (Exception ex)
+            //{
+
+            //}
+
+            // TempData[""]
         }
         public IActionResult indexsave()
         {
-            int a = messIdTemp;
 
+            //  var cart = SessionHelper.GetObjectFromJson<List<ChildEnrolmentViewModel>>(HttpContext.Session, "childs1");
+            // int a = messIdTemp;
 
-            string g = ViewBag.temp;
-           // string s = ViewData["temp"].ToString();
-            string b = TempData["alo"].ToString();
+            //   ViewBag.cart = cart;
+        
+            // string g = ViewBag.temp;
+            //// string s = ViewData["temp"].ToString();
+            // string b = TempData["alo"].ToString();
             return View();
         }
     }

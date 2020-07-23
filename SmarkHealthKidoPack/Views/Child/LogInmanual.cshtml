@@ -16,7 +16,7 @@
     <title>Ela Admin - HTML5 Admin Template</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
+    @*<link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
     <link rel="shortcut icon" href="https://i.imgur.com/QRAUqs9.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
@@ -26,57 +26,57 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
     <link rel="stylesheet" href="assets/css/cs-skin-elastic.css">
     <link rel="stylesheet" href="assets/css/style.css">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>*@
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
 </head>
 <body class="bg-dark">
     <div class="sufee-login d-flex align-content-center flex-wrap">
         <div class="container">
             <h2 class="text-center color-white">Child LogIn @ViewBag.temp</h2>
-            <h1 class="text-center color-white">Press your finger on scanner</h1>
             <div class="login-content">
                 <div class="login-logo">
-                    <button>
-                        <img src="~/images/fingerprin_7xxq639z.gif" />
-                    </button>>
-
-
-
+                   
                     @ViewBag.message
                     @if ((bool)ViewData["Test"] == true)
                     {
                         <p class="bg-danger">Incorrect user name or password </p>
                     }
                 </div>
+                <div class="login-form">
+                    <form asp-action="LogInmanual">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label>User Name</label>
+                            <input asp-for="ChildName" class="form-control" />
+                            <span asp-validation-for="ChildName" class="text-danger"></span>
+                        </div>
 
-                <form asp-action="LogIn1">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    @*<div class="form-group">
-            <label>User Name</label>
-            <input asp-for="ChildName" class="form-control" />
-            <span asp-validation-for="ChildName" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label>Password</label>
-            <input type="password" asp-for="password" class="form-control" />
-            <span asp-validation-for="password" class="text-danger"></span>
-        </div>*@
-
-                    <h1>@ViewBag.temp</h1>
-
-                    @*<button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30">Sign in</button>*@
-                    <button asp-action="LogIn" name="child" value="@ViewBag.temp">save</button>
-                </form>
-              
-
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" asp-for="password" class="form-control" />
+                            <span asp-validation-for="password" class="text-danger"></span>
+                        </div>
+                        @*<button asp-action="LogIn">save</button>*@
+                        <h1>@ViewBag.temp</h1>
+                        @*<div class="checkbox">
+                                <label>
+                                    <input type="checkbox"> Remember Me
+                                </label>
+                                <label class="pull-right">
+                                    <a href="#">Forgotten Password?</a>
+                                </label>
+                            </div>*@
+                        <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30">Sign in</button>
+                  
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+    @*<script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
-    <script src="assets/js/main.js"></script>
+    <script src="assets/js/main.js"></script>*@
 </body>
 </html>

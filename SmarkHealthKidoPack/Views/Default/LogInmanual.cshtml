@@ -33,43 +33,43 @@
     <div class="sufee-login d-flex align-content-center flex-wrap">
         <div class="container">
             <h2 class="text-center color-white">Child LogIn @ViewBag.temp</h2>
-            <h1 class="text-center color-white">Press your finger on scanner</h1>
             <div class="login-content">
                 <div class="login-logo">
-                    <button>
-                        <img src="~/images/fingerprin_7xxq639z.gif" />
-                    </button>>
-
-
-
+                   
                     @ViewBag.message
                     @if ((bool)ViewData["Test"] == true)
                     {
                         <p class="bg-danger">Incorrect user name or password </p>
                     }
                 </div>
+                <div class="login-form">
+                    <form asp-action="LogInmanual">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label>User Name</label>
+                            <input asp-for="ChildName" class="form-control" />
+                            <span asp-validation-for="ChildName" class="text-danger"></span>
+                        </div>
 
-                <form asp-action="LogIn1">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    @*<div class="form-group">
-            <label>User Name</label>
-            <input asp-for="ChildName" class="form-control" />
-            <span asp-validation-for="ChildName" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label>Password</label>
-            <input type="password" asp-for="password" class="form-control" />
-            <span asp-validation-for="password" class="text-danger"></span>
-        </div>*@
-
-                    <h1>@ViewBag.temp</h1>
-
-                    @*<button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30">Sign in</button>*@
-                    <button asp-action="LogIn" name="child" value="@ViewBag.temp">save</button>
-                </form>
-              
-
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" asp-for="password" class="form-control" />
+                            <span asp-validation-for="password" class="text-danger"></span>
+                        </div>
+                        @*<button asp-action="LogIn">save</button>*@
+                        <h1>@ViewBag.temp</h1>
+                        @*<div class="checkbox">
+                                <label>
+                                    <input type="checkbox"> Remember Me
+                                </label>
+                                <label class="pull-right">
+                                    <a href="#">Forgotten Password?</a>
+                                </label>
+                            </div>*@
+                        <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30">Sign in</button>
+                  
+                    </form>
+                </div>
             </div>
         </div>
     </div>

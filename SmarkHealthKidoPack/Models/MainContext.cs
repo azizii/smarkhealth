@@ -29,8 +29,8 @@ namespace SmarkHealthKidoPack.Models
         public DbSet<childfoodviewmodel>  childfoodviewmodels { get; set; }
          public DbSet<Messages>   Messages{ get; set; }
         public DbSet<SelectedChildfoods>  selectedChildfoodss { get; set; }
-
-      
+        public DbSet<fingerdata> fingerdatas {get; set; }
+       
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
