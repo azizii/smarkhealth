@@ -1,0 +1,36 @@
+﻿@model IEnumerable<SmarkHealthKidoPack.Models.Food>
+@{
+    ViewData["Title"] = "Foodindex";
+    Layout = "~/Views/Shared/GuardianLayout.cshtml";
+}
+<div class="container">
+    @foreach (var item in Model)
+    {
+
+        var photoPath = "~/Images/" + (item.photopath ?? "noimage.jpg");
+
+        <div class="card rounded-circle" style="width: 20rem; height:27rem; text-align:center;display:inline-block;">
+
+
+            <div class="card-block text-center ">
+                <h3 class="card-title bg-warning ">@item.foodCategory.FoodCategoryName</h3>
+                <img class="card-img-top " title="Click to View Product detail"
+                     style="cursor:pointer;height:200px;width:100%"
+                     src="@photoPath" asp-append-version="true" style="border-radius:.60rem;" />
+                <h2 class="card-title">@item.FoodName</h2>
+                <p class="card-text">price: @item.Price</p>
+
+
+
+                @*//class="ti-pencil-alt"*@
+
+                @*<a asp-action="AddToCart" asp-route-id="@item.FoodId">add</a> |
+                    <a class="ti-layout-grid4" asp-action="Details" asp-route-id="@item.FoodId"></a> |
+                    <a class="ti-close" asp-action="Showcart">show shopping cart</a>*@
+            </div>
+
+        </div>
+    }
+
+
+</div>

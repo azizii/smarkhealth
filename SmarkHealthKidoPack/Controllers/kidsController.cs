@@ -164,7 +164,7 @@ namespace SmarkHealthKidoPack.Controllers
 
 
                     Bitmap bmp = new Bitmap(ms);
-                    bmp.Save("C:\\Users\\azizahmed\\Desktop\\New folder (3)\\test.bmp");
+                   bmp.Save("C:\\Users\\azizahmed\\Desktop\\New folder (3)\\test.bmp");
                     byte[] imageBytes = ms.ToArray();
 
 

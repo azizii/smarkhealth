@@ -16,7 +16,7 @@
     <p>
         <a asp-action="ChildRegister">Register Child</a>
         <a asp-action="LogOut">LogOut</a>
-        <a asp-action="FoodList">FoodList</a>
+        <a asp-action="Foodindex">FoodList</a>
     </p>
 <table class="table">
     <thead>
@@ -55,6 +55,12 @@
             </td>
             <td>
                 <a asp-action="FoodList" asp-route-id="@item.ChildId">select food</a>
+            </td>
+            <td>
+                <a asp-controller="SelectedFood" asp-action="Index" asp-route-id="@item.ChildId"> Selected foods</a>
+            </td>
+            <td>
+                <a asp-controller="SelectedFood" asp-action="purcahsedfood" asp-route-id="@item.ChildId"> purcahsed food</a>
             </td>
             <td>
                 <a asp-action="deletechild" asp-route-id="@item.ChildId">delete child</a>

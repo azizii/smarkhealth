@@ -17,7 +17,16 @@ namespace SmarkHealthKidoPack.Models
         public static T GetObjectFromJson<T>(this ISession session, string key)
         {
             var value = session.GetString(key);
+            
             return value == null ? default(T) : JsonConvert.DeserializeObject<T>(value);
         }
+        public static void removesession(this ISession session, string key, object value)
+        {
+            //session.SetString(key, JsonConvert.SerializeObject(value));
+            //session.removesession(key, JsonConvert.SerializeObject(value));
+            //session.
+            session.Remove(key);
+        }
+
     }
 }

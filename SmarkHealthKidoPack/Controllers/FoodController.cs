@@ -128,14 +128,40 @@ namespace SmarkHealthKidoPack.Controllers
             var userinfo = JsonConvert.DeserializeObject<Mess>(HttpContext.Session.GetString("sessionUser1234"));
             int id = userinfo.MessId;
             var food = _Context.food.Include(c => c.foodCategory).Where(m => m.foodCategory.MessId == id).ToList();
+            
+
+
             if (food.ToList().Count == 0)
             {
                 return View("Empty");
             }
             return View(food);
         }
+        /// <summary>
+        /// query practice
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult checkquery()
+        {
+            var foodss = _Context.food.Include(m=>m.foodCategory.Mess).ToList();
+            var student = _Context.food
+                       .Where(s => s.FoodName == "watermelon")
+                       .FirstOrDefault<Food>();
+            var category= _Context.foodCategories
+                       .Where(s => s.FoodCategoryName == "water")
+                       .FirstOrDefault<FoodCategory>();
+            _Context.Entry(category)
+                    .Collection(s => s.food)
+                    .Query()
+                   .Where(sc => sc.FoodName == "banana").ToList();
+               
+            var student1= _Context.food.Take(5).ToList();
+            _Context.Entry(student)
+                     .Reference(s => s.foodCategory)
+                     .Load();
 
-
+            return View("FoodList");
+        }
         /// <summary>
         ///return edit view
         /// </summary>

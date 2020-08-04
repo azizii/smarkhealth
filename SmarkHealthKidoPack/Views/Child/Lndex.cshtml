@@ -3,9 +3,16 @@
     Layout = "~/Views/Shared/AdminLayOut.cshtml";
 }
 
-
-
+@{ TempData.Keep("guardiansalarypermanent");}
+@{ TempData.Keep("id");}
+<style>
+    #my-div {
+        pointer-events: none;
+    }
+</style>
 <div class="container">
+    @if (ViewBag.lowbalance != null)
+    {<h1 class="text-danger"> @ViewBag.lowbalance</h1>}
     @if (ViewBag.messages != null)
     {
 
@@ -52,7 +59,7 @@
 
 
 
-        <h1>please  select your food @ViewBag.childname</h1>
+        <b>please  select your food @ViewBag.childname</b>
 
 
 
@@ -75,25 +82,30 @@
                     <p>
                         <table cellpadding="2" cellspacing="2" border="1">
                             <tr>
-                                <th>Option</th>
-                                <th>Id</th>
+
+                                @*<th>Id</th>*@
                                 <th>Name</th>
-                                <th>Photo</th>
+                                @*<th>Photo</th>*@
                                 <th>Price</th>
                                 <th>Quantity</th>
                                 <th>Sub Total</th>
+                                <th>Option</th>
+
                             </tr>
                             @foreach (var item in ViewBag.cart)
                             {
                                 <tr>
-                                    <td><a asp-action="Remove" asp-route-id="@item.food.FoodId">Remove</a></td>
-                                    <td>@item.food.FoodId</td>
+
                                     <td>@item.food.FoodName</td>
 
-                                    <td> <img src="~/images/1665e8d3-3458-4d81-982f-230b2623b437_water_melon.jpg" style="border-radius:.60rem;" width="193" height="130" /> </td>
+
                                     <td>@item.food.Price</td>
                                     <td>@item.quantity</td>
                                     <td>@(item.food.Price * item.quantity)</td>
+                                    <td><a asp-action="Remove" asp-route-id="@item.food.FoodId">Remove</a></td>
+
+
+
                                 </tr>
                             }
                             <tr>
@@ -119,7 +131,8 @@
 
 
             }
-            <p>Current balance iss @ViewBag.balance</p>
+            <b class="text-center"><h3>Current balance iss Rs:@ViewBag.balance</h3></b>
+
             <div class="card-body">
 
 
@@ -128,17 +141,25 @@
 
                     var photoPath = "~/Images/" + (item.foodlist.photopath ?? "noimage.jpg");
 
-                    <div class="card rounded-circle" style="width: 20rem; height:27rem; text-align:center;display:inline-block;">
+                    <div class="card rounded-circle" style="width: 15rem; height:20rem; text-align:center;display:inline-block;">
 
 
                         <div class="card-block text-center ">
                             <h3 class="card-title bg-warning">Select</h3>
                             <img class="card-img-top " title="Click to View Product detail"
-                                 style="cursor:pointer;height:200px;width:100%"
+                                 style="cursor:pointer;height:110px;width:110px"
                                  src="@photoPath" asp-append-version="true" style="border-radius:.60rem;" />
                             <h2 class="card-title">@item.foodlist.FoodName</h2>
                             <p class="card-text">Price: Rs: @item.foodlist.Price</p>
-                            <a asp-action="AddToCart" asp-route-id="@item.foodlist.FoodId">add</a>
+                            @if (@ViewBag.balance > 0)
+                            {
+
+                                <a class="btn btn-primary" role="button" asp-action="AddToCart" asp-route-id="@item.foodlist.FoodId">add</a>
+                            }
+                            else
+                            {
+                                <b> No balance</b>
+                            }
                             @*<a class="ti-pencil-alt" asp-action="EditView" asp-route-id="@item.FoodId"></a> |
                                 <a class="ti-layout-grid4" asp-action="Details" asp-route-id="@item.FoodId"></a> |
                                 <a class="ti-close" asp-action="Delete" asp-route-id="@item.FoodId"></a>*@
@@ -150,6 +171,10 @@
 
 
             </div>
+
+
+
+
         </div>
     }
 </div>

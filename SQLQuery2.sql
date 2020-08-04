@@ -1,1 +1,1 @@
-﻿DELETE FROM children;
+﻿select * from selectedChildfoodss

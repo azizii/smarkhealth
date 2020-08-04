@@ -121,8 +121,11 @@ namespace SmarkHealthKidoPack.Controllers
                         {
                             // Child childS = _Context.children.Find(c.ChildId);
                             //  HttpContext.Session.Clear();
-                            TempData["childid"] = c.ChildId;
-                            TempData["guardiansalary"] = c.Guardian.Balance;
+                            
+
+                        TempData["childid"] = c.ChildId;
+                        TempData["Amountnow"] = c.Guardian.Balance;
+                        TempData["guardiansalarypermanent"] = c.Guardian.Balance;
                         _Context.Database.ExecuteSqlCommand("TRUNCATE TABLE [fingerdatas]");
                         // HttpContext.Session.SetString("childsession", Newtonsoft.Json.JsonConvert.SerializeObject(c));
                         return RedirectToAction(nameof(Lndex));
@@ -146,124 +149,95 @@ namespace SmarkHealthKidoPack.Controllers
 
 
 
-        public async Task<IActionResult> LogInmanual()
-        {
+        //public async Task<IActionResult> LogInmanual()
+        //{
 
-            //var Messinfo = JsonConvert.DeserializeObject<Mess>(HttpContext.Session.GetString("sessionUser1234"));
-
-
-            //messIdTemp = Messinfo.MessId;
+        //    //var Messinfo = JsonConvert.DeserializeObject<Mess>(HttpContext.Session.GetString("sessionUser1234"));
 
 
-            ViewData["Test"] = false;
-            //device_close();
-            //init_device();
-            //device_open();
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> LogInmanual(Child child)
-        {
-            if (child == null)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-
-                Child c = _Context.children.Include(m => m.Guardian).FirstOrDefault(m => m.ChildName == child.ChildName && m.password == child.password);
-                TempData["id"] = c.ChildId;
-                // 
-                if (c != null)
-                {
-
-                    var Messinfo = JsonConvert.DeserializeObject<Mess>(HttpContext.Session.GetString("sessionUser1234"));
+        //    //messIdTemp = Messinfo.MessId;
 
 
-                    int id = Messinfo.MessId;
-                    messIdTemp = id;
-                    if (c.Guardian.messId == id)
-                    {
-                        // Child childS = _Context.children.Find(c.ChildId);
-                        //  HttpContext.Session.Clear();
-                        TempData["childid"] = c.ChildId;
-                        TempData["guardiansalary"] = c.Guardian.Balance;
-                        // HttpContext.Session.SetString("childsession", Newtonsoft.Json.JsonConvert.SerializeObject(c));
-                        return RedirectToAction(nameof(Lndex));
-                    }
-                    else
-                    {
-                        ViewBag.message = "user is not register yet";
-                        //ViewData["Test"] = true;
-                    }
-                }
-                ViewData["Test"] = true;
-            }
-            return View();
-        }
+        //    ViewData["Test"] = false;
+        //    //device_close();
+        //    //init_device();
+        //    //device_open();
+        //    return View();
+        //}
+
+        //public async Task<IActionResult> LogInmanual()
+        //{
+
+        //    //var Messinfo = JsonConvert.DeserializeObject<Mess>(HttpContext.Session.GetString("sessionUser1234"));
 
 
+        //    //messIdTemp = Messinfo.MessId;
 
 
+        //    ViewData["Test"] = false;
+        //    //device_close();
+        //    //init_device();
+        //    //device_open();
+        //    return View();
+        //}
 
-        [HttpPost]
-        public IActionResult LogIn1(Child child)
-        {
-            if (child == null)
-            {
-                return NotFound();
-            }
+        //[HttpPost]
+        //public async Task<IActionResult> LogInmanual(Child child)
+        //{
+        //    if (child == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    Child c = _Context.children.Include(m => m.Guardian).FirstOrDefault(m => m.ChildName == child.ChildName && m.password == child.password);
-
-                    TempData["id"] = c.ChildId;
-
-                    // 
-                    if (c != null)
-                    {
-
-                        var Messinfo = JsonConvert.DeserializeObject<Mess>(HttpContext.Session.GetString("sessionUser1234"));
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
 
 
-                        int id = Messinfo.MessId;
-                        messIdTemp = id;
-                        if (c.Guardian.messId == id)
-                        {
-                            // Child childS = _Context.children.Find(c.ChildId);
-                            //  HttpContext.Session.Clear();
-                            TempData["childid"] = c.ChildId;
-                            TempData["guardiansalary"] = c.Guardian.Balance;
-                            // HttpContext.Session.SetString("childsession", Newtonsoft.Json.JsonConvert.SerializeObject(c));
-                            return RedirectToAction(nameof(Lndex));
-                        }
-                        else
-                        {
-                            ViewBag.message = "user is not register yet";
-                            //ViewData["Test"] = true;
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
+        //            Child c = _Context.children.Include(m => m.Guardian).FirstOrDefault(m => m.ChildName == child.ChildName && m.password == child.password);
+        //            TempData["id"] = c.ChildId;
 
-                }
-                ViewData["Test"] = true;
-            }
-            return View("LogIn");
-        }
+        //            if (c != null)
+        //            {
+
+        //                var Messinfo = JsonConvert.DeserializeObject<Mess>(HttpContext.Session.GetString("sessionUser1234"));
 
 
+        //                int id = Messinfo.MessId;
+        //                // messIdTemp = id;
+        //                if (c.Guardian.messId == id)
+        //                {
+        //                    // Child childS = _Context.children.Find(c.ChildId);
+        //                    //  HttpContext.Session.Clear();
+        //                    TempData["childid"] = c.ChildId;
+        //                    TempData["Amountnow"] = c.Guardian.Balance;
+        //                    TempData["guardiansalarypermanent"] = c.Guardian.Balance;
+        //                    // HttpContext.Session.SetString("childsession", Newtonsoft.Json.JsonConvert.SerializeObject(c));
+        //                    return RedirectToAction(nameof(Lndex));
+        //                }
+        //                else
+        //                {
+        //                    ViewBag.message = "user is not register yet";
+        //                    //ViewData["Test"] = true;
+        //                }
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
 
+        //        }
+
+        //        ViewData["Test"] = true;
+        //    }
+        //    return View();
+        //}
 
         public IActionResult Lndex(string message)
         {
-            device_close();
+            int totalbalance1 = 0;
+
+            //  device_close();
             if (message != null)
             {
 
@@ -295,72 +269,114 @@ namespace SmarkHealthKidoPack.Controllers
                 //   foodlist = _Context.food.Find(cvm[i].foodid)
 
             }
-            if (TempData["status12345"] != null)
+            if (TempData["status12345s1"] != null)
             {
                 var cart = SessionHelper.GetObjectFromJson<List<ProductViewModel>>(HttpContext.Session, "cart");
-
-
+                totalbalance1 = Convert.ToInt32(TempData["guardiansalarypermanent"].ToString());
+                decimal foodselectedprice = cart.Sum(item => item.food.Price * item.quantity);
+                int newbalance = totalbalance1 - Convert.ToInt32(foodselectedprice);
+                TempData["Amountnow"] = newbalance;
                 ViewBag.cart = cart;
-                ViewBag.total = cart.Sum(item => item.food.Price * item.quantity);
+                ViewBag.total = foodselectedprice;
             }
             ViewBag.childname = childname.ChildName;
-            int balance = Convert.ToInt32(TempData["guardiansalary"].ToString());
-            ViewBag.balance = balance;
+            int AmountNow = Convert.ToInt32(TempData["Amountnow"].ToString());
+            if (TempData["lowbalance"] != null)
+            {
+                ViewBag.lowbalance = "your balance is low";
+            }
+            ViewBag.balance = AmountNow;
             TempData["id"] = childname.ChildId;
-            TempData["guardiansalary"] = balance;
+            TempData["Amountnow"] = AmountNow;
+            TempData["status12345s"] = 1;
+            ////}
 
+            //TempData["guardiansalarypermanent"]
             return View(vm);
+        }
+        public int checlbalance(int a)
+        {
+            if (a < 0)
+            {
+                return -1;
+            }
+            return 0;
+        }
+        public IActionResult display(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var del = _Context.Registers.FirstOrDefault(m => m.RegisterId == id);
+            //Register r = new Register
+            //{
+            //    RegisterId = del.RegisterId,
+            //    finerprints = del.finerprints
+            //};
+
+            return View();
         }
 
         public ActionResult AddToCart(int id)
         {
-
-
-            if (SessionHelper.GetObjectFromJson<List<ProductViewModel>>(HttpContext.Session, "cart") == null)
+            List<ProductViewModel> cart = SessionHelper.GetObjectFromJson<List<ProductViewModel>>(HttpContext.Session, "cart");
+            int a = Convert.ToInt32(TempData["Amountnow"].ToString());
+            Food f = _Context.food.Find(id);
+            if (a >= f.Price)
             {
-                List<ProductViewModel> cart = new List<ProductViewModel>();
-
-
-                cart.Add(new ProductViewModel { food = _Context.food.Find(id), quantity = 1 });
-                if (cart.Count > 0)
+                if (SessionHelper.GetObjectFromJson<List<ProductViewModel>>(HttpContext.Session, "cart") == null)
                 {
+                    cart = new List<ProductViewModel>();
 
-                    TempData["status12345"] = 1;
+
+                    cart.Add(new ProductViewModel { food = _Context.food.Find(id), quantity = 1 });
+                    if (cart.Count > 0)
+                    {
+
+                        TempData["status12345s1"] = 1;
+
+                    }
+
+                    SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
+
 
                 }
+                else
+                {
+                    cart = SessionHelper.GetObjectFromJson<List<ProductViewModel>>(HttpContext.Session, "cart");
+                    int index = isExist(id);
+                    if (index != -1)
+                    {
+                        cart[index].quantity++;
+                    }
+                    else
+                    {
+                        cart.Add(new ProductViewModel { food = _Context.food.Find(id), quantity = 1 });
 
-                SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
+
+
+                    }
+
+                    SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
+                }
+
 
 
             }
             else
             {
-                List<ProductViewModel> cart = SessionHelper.GetObjectFromJson<List<ProductViewModel>>(HttpContext.Session, "cart");
-                int index = isExist(id);
-                if (index != -1)
-                {
-                    cart[index].quantity++;
-                }
-                else
-                {
-                    cart.Add(new ProductViewModel { food = _Context.food.Find(id), quantity = 1 });
-
-
-
-                }
-
-                if (cart.Count > 0)
-                {
-
-                    TempData["status12345"] = 1;
-
-
-                }
-                SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
-         
+                TempData["lowbalance"] = 123;
             }
 
 
+            if (cart.Count > 0)
+            {
+
+                TempData["status12345s1"] = 1;
+
+
+            }
 
             int childid = Convert.ToInt32(TempData["childid"].ToString());
             TempData["id"] = childid;
@@ -378,7 +394,10 @@ namespace SmarkHealthKidoPack.Controllers
             ViewBag.total = cart.Sum(item => item.food.Price * item.quantity);
             return View();
         }
-
+        /// <summary>
+        /// save all selected item from kids
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Save()
         {
 
@@ -390,7 +409,21 @@ namespace SmarkHealthKidoPack.Controllers
             DateTime da = DateTime.Now;
             //  && c1.dateselected == d
             string d = da.ToShortDateString();
+
             List<ProductViewModel> cart = SessionHelper.GetObjectFromJson<List<ProductViewModel>>(HttpContext.Session, "cart");
+            ViewBag.cart = cart;
+            decimal total = cart.Sum(item => item.food.Price * item.quantity);
+            ViewBag.total = cart.Sum(item => item.food.Price * item.quantity);
+            //find child
+            Child child = _Context.children.Find(kidId);
+            ////find guardain
+            int guardainid = child.guardianId;
+            Guardian guardain = _Context.guardians.Find(guardainid);
+            int databaseorignalvalue = guardain.Balance;
+            int newvalue = databaseorignalvalue - Convert.ToInt32(total);
+            guardain.Balance = newvalue;
+            _Context.guardians.Update(guardain);
+            _Context.SaveChanges();
             var c = new List<SelectedChildfoods>();
             for (int i = 0; i < cart.Count; i++)
             {
@@ -403,10 +436,7 @@ namespace SmarkHealthKidoPack.Controllers
 
                 });
 
-                //if (cart[i].food.FoodId.Equals())
-                //{
-                //    return i;
-                //}
+
             }
 
             foreach (SelectedChildfoods employee in c)
@@ -415,6 +445,12 @@ namespace SmarkHealthKidoPack.Controllers
             }
 
 
+            for (int j = 0; j < cart.Count; j++)
+            {
+                cart.RemoveAt(j);
+            }
+            // SessionHelper.GetObjectFromJson<List<ProductViewModel>>(HttpContext.Session, "cart").Clear();
+            SessionHelper.removesession(HttpContext.Session, "cart", cart);
             //Guardian userinfo = JsonConvert.DeserializeObject<Guardian>(HttpContext.Session.GetString("Guardian"));
 
             //Child userinfo1 = JsonConvert.DeserializeObject<Child>(HttpContext.Session.GetString("Child"));
@@ -448,7 +484,7 @@ namespace SmarkHealthKidoPack.Controllers
 
             _Context.SaveChanges();
             //   
-            return RedirectToAction("Lndex", new { Message = "datasave" });
+            return View();
         }
 
         private int isExist(int id)
@@ -475,13 +511,12 @@ namespace SmarkHealthKidoPack.Controllers
             int total = cart.Count;
             if (total != 0)
             {
-                TempData["status12345"] = 1;
+                TempData["status12345s1"] = 1;
             }
 
             SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
             return RedirectToAction("Lndex");
         }
-
         // Now other authentication code\
 
 
@@ -682,6 +717,7 @@ namespace SmarkHealthKidoPack.Controllers
                 int i = cmd.ExecuteNonQuery();
 
                 con.Close();
+                
             }
             catch (Exception ex)
             {

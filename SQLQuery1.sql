@@ -1,1 +1,1 @@
-﻿DELETE FROM childfoodviewmodels;
+﻿select * from childfoodviewmodels

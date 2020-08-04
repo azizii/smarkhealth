@@ -1,0 +1,98 @@
+﻿@model IEnumerable<SmarkHealthKidoPack.ViewModel.GuardainSeeChildselectedFood>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/GuardianLayout.cshtml";
+}
+
+<h1>All selected foods</h1>
+
+
+<div class="content">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <strong class="card-title">Data Table</strong>
+                    </div>
+                    <div class="card-body">
+                        <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+
+                                    <th>Food</th>
+                                    <th>price</th>
+                                    <th>Date</th>
+                                    <th>Image</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var item in Model)
+                                {
+                                    var photoPath = "~/Images/" + (item.foods.photopath ?? "noimage.jpg");
+                                    <tr>
+
+                                        <td>@item.foods.FoodName</td>
+                                        <td>@item.foods.Price</td>
+                                        <td>@item.selecteddate</td>
+                                        <td><img class="round-img rounded-circle" style="width:4em; height:4em;" src="@photoPath" asp-append-version="true" alt="@photoPath" /> </td>
+
+                                    </tr>
+                                }
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div><!-- .animated -->
+</div><!-- .content -->
+@*<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.childname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.foods.FoodName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.foods.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.selecteddate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            var photoPath = "~/Images/" + (item.foods.photopath ?? "noimage.jpg");
+            <tr>
+                <td>
+                    <img class="round-img rounded-circle" style="width:4em; height:4em;" src="@photoPath" asp-append-version="true" alt="@photoPath" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.foods.FoodName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.foods.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.selecteddate)
+                </td>
+                @*<td>
+                    <a asp-action="Edit" asp-route-id="@item.childfoodviewmodelid">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.childfoodviewmodelid">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.childfoodviewmodelid">Delete</a>
+                </td>*
+            </tr>
+        }
+    </tbody>
+</table>*@
